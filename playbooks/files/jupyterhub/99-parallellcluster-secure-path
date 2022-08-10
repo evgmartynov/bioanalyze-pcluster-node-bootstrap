@@ -1,0 +1,2 @@
+# /etc/sudoers.d/99-parallelcluster-secure-path
+Defaults secure_path = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/slurm/bin:/apps/easybuild/4.5.4/software/jupyterlab/2022.05.20/bin

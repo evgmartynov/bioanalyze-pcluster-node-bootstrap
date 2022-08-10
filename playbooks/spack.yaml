@@ -1,0 +1,30 @@
+---
+- name: Install Spack
+  hosts: localhost
+  tasks:
+    - name: Copy spack packages file
+      ansible.builtin.copy:
+        src: ./files/spack/spack-packages.yaml
+        dest: /home/ec2-user/.spack/packages.yaml
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
+    - name: Create spack apps directory
+      ansible.builtin.file:
+        path: /apps/spack
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: https://github.com/spack/spack.git
+        dest: /apps/spack
+        version: v0.18.1
+    # TODO this needs to be done per node
+    - name: Create spack source script
+      ansible.builtin.shell: |
+        echo "export SPACK_ROOT=/apps/spack" > spack.sh
+        echo "source /apps/spack/share/spack/setup-env.sh" >> spack.sh
+        sudo mv spack.sh /etc/profile.d/spack.sh
+        source /apps/spack/share/spack/setup-env.sh

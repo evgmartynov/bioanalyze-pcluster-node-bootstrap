@@ -1,0 +1,13 @@
+#/usr/lib/systemd/system/daskgateway.service
+[Unit]
+Description=DaskGateway
+
+[Service]
+User=root
+
+Environment="PATH=/apps/easybuild/4.5.4/software/jupyterlab/2022.05.10/bin/:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/slurm/bin"
+ExecStart=/apps/software-configs/jupyterhub/run-daskgateway.sh
+WorkingDirectory=/apps/software-configs/jupyterhub
+
+[Install]
+WantedBy=multi-user.target

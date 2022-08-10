@@ -1,0 +1,9 @@
+# ~/.spack/packages.yaml
+packages:
+  openmpi:
+    variants: +legacylaunchers +pmi schedulers=slurm
+  slurm:
+    buildable: false
+    externals:
+      - prefix: /opt/slurm/
+        spec: slurm@21.08.6

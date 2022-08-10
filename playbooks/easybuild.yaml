@@ -1,0 +1,54 @@
+---
+- name: Bootstrap easybuild
+  hosts: localhost
+  roles:
+    - role: evandam.conda
+  tasks:
+    - name: Easybuild conda env
+      conda:
+        name:
+          - python=3.7
+          - pip
+        environment: easybuild4
+        state: present
+    # You can use shell to run other executables to perform actions inline
+    - name: Pip install easybuild
+      ansible.builtin.shell: |
+        source activate easybuild4 && pip install easybuild==4
+        exit 0
+    - name: Create easybuild apps directory
+      ansible.builtin.file:
+        path: /apps/easybuild/4.5.4
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: Create easybuild modules directory
+      ansible.builtin.file:
+        path: /apps/easybuild/4.5.4/modules/all
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-easyconfigs
+        dest: /apps/software-configs/bioanalyze-easyconfigs
+    - name: Install easybuild modules
+      ansible.builtin.shell: |
+        source /usr/share/lmod/lmod/init/bash
+
+        export EASYBUILD_PREFIX=/apps/easybuild/4.5.4
+        export MODULEPATH=/apps/easybuild/4.5.4/modules/all
+        export ROBOT=/apps/software-configs/bioanalyze-easyconfigs
+
+        module purge
+        source activate easybuild4
+
+        export EASYBUILD_JOB_BACKEND='Slurm'
+        cd ${ROBOT}
+        eb --robot=${ROBOT}: --job  \
+          --tmp-logdir $HOME/eb_tmplogs \
+          easybuild/easyconfigs/miniconda3-4.12.0.eb \
+          easybuild/easyconfigs/pangeo-notebook-2022.05.10/jupyterlab-2022.05.10.eb \
+          easybuild/easyconfigs/easybuild-4.5.4.eb 

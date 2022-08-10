@@ -1,0 +1,39 @@
+---
+- name: Install Spack
+  hosts: localhost
+  tasks:
+    - name: Create jupyterhub config and scripts directory
+      ansible.builtin.file:
+        path: /apps/software-configs/jupyterhub
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: Copy Dask Gateway Service
+      ansible.builtin.copy:
+        src: ./files/jupyterhub/daskgateway.service
+        dest: /usr/lib/systemd/system/daskgateway.service
+    - name: Copy Jupyterhub Service
+      ansible.builtin.copy:
+        src: ./files/jupyterhub/jupyterhub.service
+        dest: /usr/lib/systemd/system/jupyterhub.service
+    - name: Copy Jupyterhub Config
+      ansible.builtin.copy:
+        src: ./files/jupyterhub/jupyterhub_config.py
+        dest: /apps/software-configs/jupyterhub/jupyterhub_config.py
+    - name: Copy Dask Gateway Config
+      ansible.builtin.copy:
+        src: ./files/jupyterhub/dask_gateway_config.py
+        dest: /apps/software-configs/jupyterhub/dask_gateway_config.py
+    - name: Copy Jupyterhub Service Script
+      ansible.builtin.copy:
+        src: ./files/jupyterhub/run-jupyterhub.sh
+        dest: /apps/software-configs/jupyterhub/run-jupyterhub.sh
+    - name: Copy Dask Gateway Service Script
+      ansible.builtin.copy:
+        src: ./files/jupyterhub/run-daskgateway.sh
+        dest: /apps/software-configs/jupyterhub/run-daskgateway.sh
+    - name: Copy Secure Path
+      ansible.builtin.copy:
+        src: ./files/99-parallelcluster-secure-path
+        dest: /etc/sudoers.d/99-parallelcluster-secure-path

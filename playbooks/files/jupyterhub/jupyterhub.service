@@ -1,0 +1,11 @@
+#/usr/lib/systemd/system/jupyterhub.service
+[Unit]
+Description=Jupyterhub
+
+[Service]
+User=root
+ExecStart=/apps/software-configs/jupyterhub/run-jupyterhub.sh
+WorkingDirectory=/apps/software-configs/jupyterhub
+
+[Install]
+WantedBy=multi-user.target
