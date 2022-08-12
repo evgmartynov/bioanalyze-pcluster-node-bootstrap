@@ -1,0 +1,10 @@
+auto_update_conda: false
+auto_activate_base: false
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+channel_priority: strict
+create_default_packages:
+  - setuptools
+verbosity: 3
