@@ -35,5 +35,5 @@
         dest: /apps/software-configs/jupyterhub/run-daskgateway.sh
     - name: Copy Secure Path
       ansible.builtin.copy:
-        src: ./files/jupyterhub/99-parallelcluster-secure-path
-        dest: /etc/sudoers.d/99-parallelcluster-secure-path
+        src: ./files/jupyterhub/99-parallellcluster-secure-path
+        dest: /etc/sudoers.d/99-parallellcluster-secure-path
