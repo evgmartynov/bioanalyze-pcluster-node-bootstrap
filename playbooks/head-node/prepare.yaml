@@ -1,0 +1,33 @@
+# Prepare directories as root
+---
+- name: Prepare directories
+  hosts: localhost
+  tasks:
+    - name: Create easybuild apps directory
+      ansible.builtin.file:
+        path: /apps/easybuild/4.5.4
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: Create easybuild modules directory
+      ansible.builtin.file:
+        path: /apps/easybuild/4.5.4/modules/all
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: Create software-configs
+      ansible.builtin.file:
+        path: /apps/software-configs
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: Scratch reference
+      ansible.builtin.file:
+        path: /scratch/reference
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user

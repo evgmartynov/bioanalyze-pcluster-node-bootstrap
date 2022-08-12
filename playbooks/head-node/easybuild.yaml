@@ -41,6 +41,7 @@
       ansible.builtin.git:
         repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-easyconfigs
         dest: /apps/software-configs/bioanalyze-easyconfigs
+        force: yes
     - name: Install easybuild modules
       ansible.builtin.shell: |
         source /usr/share/lmod/lmod/init/bash
