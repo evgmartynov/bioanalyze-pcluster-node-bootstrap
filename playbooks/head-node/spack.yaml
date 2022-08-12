@@ -35,6 +35,7 @@
         repo: https://github.com/spack/spack.git
         dest: /apps/spack
         version: v0.18.1
+        force: yes
     # TODO this needs to be done per node
     - name: Create spack source script
       ansible.builtin.shell: |
