@@ -2,6 +2,13 @@
 - name: Install Spack
   hosts: localhost
   tasks:
+    - name: Create spack packages directory
+      ansible.builtin.file:
+        dest: /home/ec2-user/.spack
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
     - name: Copy spack packages file
       ansible.builtin.copy:
         src: ./files/spack/spack-packages.yaml
