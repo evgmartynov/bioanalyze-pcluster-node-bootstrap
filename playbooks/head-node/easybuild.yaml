@@ -21,7 +21,6 @@
     # You can use shell to run other executables to perform actions inline
     - name: Pip install easybuild
       ansible.builtin.shell: |
-        source activate easybuild4 && pip install easybuild==4
         exit 0
     - name: Create easybuild apps directory
       ansible.builtin.file:
@@ -49,9 +48,11 @@
         export EASYBUILD_PREFIX=/apps/easybuild/4.5.4
         export MODULEPATH=/apps/easybuild/4.5.4/modules/all
         export ROBOT=/apps/software-configs/bioanalyze-easyconfigs
-
+        
         module purge
+        
         source activate easybuild4
+        pip install "easybuild>=4,<5"
 
         export EASYBUILD_JOB_BACKEND='Slurm'
         cd ${ROBOT}

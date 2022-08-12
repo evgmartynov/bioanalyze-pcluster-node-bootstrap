@@ -4,3 +4,4 @@ install:
 
 apply:
 	echo "apply"
+	sudo ansible-playbook playbooks/head-node/prepare.yaml
