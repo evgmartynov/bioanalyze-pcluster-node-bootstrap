@@ -24,6 +24,13 @@
         mode: '0755'
         owner: ec2-user
         group: ec2-user
+    - name: Create jupyterhub config
+      ansible.builtin.file:
+        path: /apps/software-configs/jupyterhub
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
     - name: Scratch reference
       ansible.builtin.file:
         path: /scratch/reference

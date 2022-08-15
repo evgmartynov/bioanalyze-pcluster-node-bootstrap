@@ -9,3 +9,6 @@ apply: install
 	sudo ansible-playbook ./playbooks/head-node/spack.yaml
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
 	sudo ansible-playbook ./playbooks/head-node/jupyterhub.yaml
+
+apply-compute: install
+	sudo ansible-playbook ./playbooks/shared/spack.yaml
