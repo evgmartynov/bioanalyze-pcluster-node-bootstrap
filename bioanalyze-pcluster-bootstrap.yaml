@@ -1,0 +1,9 @@
+---
+- name: Install BioAnalyze Bootstrap
+  hosts: localhost
+  tasks:
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-pcluster-node-bootstrap
+        dest: /home/ec2-user/bioanalyze-pcluster-node-bootstrap
+        force: yes
