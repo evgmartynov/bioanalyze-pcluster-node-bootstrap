@@ -1,5 +1,5 @@
 ---
-- name: Install Spack
+- name: Configure Jupyterhub
   hosts: localhost
   tasks:
     - name: Create jupyterhub config and scripts directory
@@ -37,3 +37,10 @@
       ansible.builtin.copy:
         src: ./files/jupyterhub/99-parallellcluster-secure-path
         dest: /etc/sudoers.d/99-parallellcluster-secure-path
+    - name: Start Jupyterhub service
+      ansible.builtin.shell: |
+        sudo systemctl daemon-reload
+        sudo systemctl enable daskgateway
+        sudo systemctl start daskgateway
+        sudo systemctl enable jupyterhub
+        sudo systemctl start jupyterhub
