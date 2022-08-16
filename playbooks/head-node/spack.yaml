@@ -43,3 +43,5 @@
         echo "source /apps/spack/share/spack/setup-env.sh" >> spack.sh
         sudo mv spack.sh /etc/profile.d/spack.sh
         source /apps/spack/share/spack/setup-env.sh
+        
+        sudo chown -R ec2-user:ec2-user /apps/spack/
