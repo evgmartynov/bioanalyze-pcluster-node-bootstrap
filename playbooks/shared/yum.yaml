@@ -4,97 +4,101 @@
 # This is a failsafe to ensure all packages are installed
 ######################################################
 
-- name: Amazon things
-  ansible.builtin.shell: |
-    sudo amazon-linux-extras install -y epel
-    sudo yum-config-manager --enable epel
-    sudo yum update -y; yum upgrade -y
+---
+- name: Bootstrap easybuild
+  hosts: localhost
+  tasks:
+    - name: Amazon things
+      ansible.builtin.shell: |
+        sudo amazon-linux-extras install -y epel
+        sudo yum-config-manager --enable epel
+        sudo yum update -y; yum upgrade -y
 
-- name: Install package with multiple repos enabled
-  ansible.builtin.yum:
-    name: sos
-    enablerepo: "epel"
+    - name: Install package with multiple repos enabled
+      ansible.builtin.yum:
+        name: sos
+        enablerepo: "epel"
 
-- name: Install the 'Development tools' package group
-  ansible.builtin.yum:
-    name: "@Development tools"
-    state: present
+    - name: Install the 'Development tools' package group
+      ansible.builtin.yum:
+        name: "@Development tools"
+        state: present
 
-- name: Install the 'Gnome desktop' environment group
-  ansible.builtin.yum:
-    name: "@^gnome-desktop-environment"
-    state: present
+    - name: Install the 'Gnome desktop' environment group
+      ansible.builtin.yum:
+        name: "@^gnome-desktop-environment"
+        state: present
 
-- name: Install openssl packages
-  ansible.builtin.yum:
-    name:
-      - openssl
-      - openssl-devel
-    state: present
+    - name: Install openssl packages
+      ansible.builtin.yum:
+        name:
+          - openssl
+          - openssl-devel
+        state: present
 
-- name: Install system packages
-  ansible.builtin.yum:
-    name:
-      - curl
-      - unzip
-      - wget
-      - git
-      - gitflow
-      - zsh
-      - sudo
-    state: present
+    - name: Install system packages
+      ansible.builtin.yum:
+        name:
+          - curl
+          - unzip
+          - wget
+          - git
+          - gitflow
+          - zsh
+          - sudo
+        state: present
 
-- name: Install ftp packages
-  ansible.builtin.yum:
-    name:
-      - vsftpd
-    state: present
+    - name: Install ftp packages
+      ansible.builtin.yum:
+        name:
+          - vsftpd
+        state: present
 
-- name: Install go packages
-  ansible.builtin.yum:
-    name:
-      - golang
-    state: present
+    - name: Install go packages
+      ansible.builtin.yum:
+        name:
+          - golang
+        state: present
 
-- name: Install perl packages
-  ansible.builtin.yum:
-    name:
-      - perl-devel
-      - perl-threads
-    state: present
+    - name: Install perl packages
+      ansible.builtin.yum:
+        name:
+          - perl-devel
+          - perl-threads
+        state: present
 
-- name: Install python packages
-  ansible.builtin.yum:
-    name:
-      - python3
-      - python3-devel
-      - pip3
+    - name: Install python packages
+      ansible.builtin.yum:
+        name:
+          - python3
+          - python3-devel
+          - pip3
 
-- name: Install file system packages
-  ansible.builtin.yum:
-    name:
-      - amazon-efs-utils
-      - quota
-      - s3fs-fuse
-      - tree
+    - name: Install file system packages
+      ansible.builtin.yum:
+        name:
+          - amazon-efs-utils
+          - quota
+          - s3fs-fuse
+          - tree
 
-- name: Install system monitoring packages
-  ansible.builtin.yum:
-    name:
-      - htop
-      - atop
+    - name: Install system monitoring packages
+      ansible.builtin.yum:
+        name:
+          - htop
+          - atop
 
-- name: Install singularity packages
-  ansible.builtin.yum:
-    name:
-      - libuuid-devel
-      - libseccomp-devel
-      - squashfs-tools
-      - singularity-runtime
-      - singularity
-    state: present
+    - name: Install singularity packages
+      ansible.builtin.yum:
+        name:
+          - libuuid-devel
+          - libseccomp-devel
+          - squashfs-tools
+          - singularity-runtime
+          - singularity
+        state: present
 
-#- name: Upgrade all packages
-#  ansible.builtin.yum:
-#    name: '*'
-#    state: latest
+  #- name: Upgrade all packages
+  #  ansible.builtin.yum:
+  #    name: '*'
+  #    state: latest
