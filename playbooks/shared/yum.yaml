@@ -12,7 +12,7 @@
       ansible.builtin.shell: |
         sudo amazon-linux-extras install -y epel
         sudo yum-config-manager --enable epel
-        sudo yum update -y; yum upgrade -y
+        sudo yum update -y
 
     - name: Install package with multiple repos enabled
       ansible.builtin.yum:
