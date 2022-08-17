@@ -1,7 +1,8 @@
-##################################
+#######################################################
 # Yum packages
 # These should all be installed on the base ami
-##################################
+# This is a failsafe to ensure all packages are installed
+######################################################
 
 - name: Amazon things
   ansible.builtin.shell: |
@@ -41,6 +42,11 @@
       - gitflow
       - zsh
       - sudo
+    state: present
+
+- name: Install ftp packages
+  ansible.builtin.yum:
+    name:
       - vsftpd
     state: present
 
