@@ -8,33 +8,29 @@
 - name: Install yum packages
   hosts: localhost
   tasks:
-    - name: Amazon things
-      ansible.builtin.shell: |
-        sudo amazon-linux-extras install -y epel
-        sudo yum-config-manager --enable epel
-        sudo yum update -y
-
-    - name: Install package with multiple repos enabled
-      ansible.builtin.yum:
-        name: sos
-        enablerepo: "epel"
 
     - name: Install the 'Development tools' package group
       ansible.builtin.yum:
         name: "@Development tools"
+        ignore_errors: yes
         state: present
+        enablerepo: "epel"
 
     - name: Install the 'Gnome desktop' environment group
       ansible.builtin.yum:
         name: "@^gnome-desktop-environment"
+        ignore_errors: yes
         state: present
+        enablerepo: "epel"
 
     - name: Install openssl packages
       ansible.builtin.yum:
         name:
           - openssl
           - openssl-devel
+        ignore_errors: yes
         state: present
+        enablerepo: "epel"
 
     - name: Install system packages
       ansible.builtin.yum:
@@ -46,26 +42,34 @@
           - gitflow
           - zsh
           - sudo
+        ignore_errors: yes
         state: present
+        enablerepo: "epel"
 
     - name: Install ftp packages
       ansible.builtin.yum:
         name:
           - vsftpd
+        ignore_errors: yes
         state: present
+        enablerepo: "epel"
 
     - name: Install go packages
       ansible.builtin.yum:
         name:
           - golang
+        ignore_errors: yes
         state: present
+        enablerepo: "epel"
 
     - name: Install perl packages
       ansible.builtin.yum:
         name:
           - perl-devel
           - perl-threads
+        ignore_errors: yes
         state: present
+        enablerepo: "epel"
 
     - name: Install python packages
       ansible.builtin.yum:
@@ -73,6 +77,9 @@
           - python3
           - python3-devel
           - pip3
+        ignore_errors: yes
+        state: present
+        enablerepo: "epel"
 
     - name: Install file system packages
       ansible.builtin.yum:
@@ -81,12 +88,18 @@
           - quota
           - s3fs-fuse
           - tree
+        ignore_errors: yes
+        state: present
+        enablerepo: "epel"
 
     - name: Install system monitoring packages
       ansible.builtin.yum:
         name:
           - htop
           - atop
+        ignore_errors: yes
+        state: present
+        enablerepo: "epel"
 
     - name: Install singularity packages
       ansible.builtin.yum:
@@ -96,9 +109,6 @@
           - squashfs-tools
           - singularity-runtime
           - singularity
+        ignore_errors: yes
         state: present
-
-  #- name: Upgrade all packages
-  #  ansible.builtin.yum:
-  #    name: '*'
-  #    state: latest
+        enablerepo: "epel"
