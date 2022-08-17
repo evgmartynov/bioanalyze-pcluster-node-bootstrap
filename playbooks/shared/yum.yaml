@@ -5,7 +5,7 @@
 ######################################################
 
 ---
-- name: Bootstrap easybuild
+- name: Install yum packages
   hosts: localhost
   tasks:
     - name: Amazon things
