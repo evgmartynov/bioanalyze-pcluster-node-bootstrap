@@ -1,6 +1,10 @@
 install:
 	sudo yum install -y ansible
+	# leave both in
+	# we need the conda role as sudo and as the user!
 	sudo ansible-galaxy install evandam.conda
+	ansible-galaxy install evandam.conda
+
 
 apply-compute: install
 	sudo ansible-playbook ./playbooks/shared/yum.yaml || echo "Yum install had errors"
