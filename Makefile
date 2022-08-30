@@ -3,8 +3,8 @@ install:
 	sudo ansible-galaxy install evandam.conda
 
 apply-compute: install
-	#sudo ansible-playbook ./playbooks/shared/yum.yaml
-	sudo ansible-playbook ./playbooks/shared/spack.yaml
+	sudo ansible-playbook ./playbooks/shared/yum.yaml || echo "Yum install had errors"
+	sudo ansible-playbook ./playbooks/shared/spack.yaml || echo "Spack install had errors"
 
 apply: install
 	echo "apply"

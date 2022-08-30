@@ -10,29 +10,49 @@
   tasks:
 
     - name: Install the 'Development tools' package group
+      ignore_errors: yes
       ansible.builtin.yum:
         name: "@Development tools"
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
+    - name: Install Gnome Desktop
+      ignore_errors: yes
+      become: yes
+      ansible.builtin.shell: |
+        sudo amazon-linux-extras install -y epel
+        sudo amazon-linux-extras install -y R4
+        sudo yum-config-manager --enable epel
+        sudo yum -y groups install "GNOME Desktop"
+
     - name: Install the 'Gnome desktop' environment group
+      ignore_errors: yes
       ansible.builtin.yum:
         name: "@^gnome-desktop-environment"
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
     - name: Install openssl packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - openssl
           - openssl-devel
-        ignore_errors: yes
+        state: present
+        enablerepo: "epel"
+
+    - name: Install system packages for R4
+      ignore_errors: yes
+      ansible.builtin.yum:
+        name:
+          - zlib-devel
+          - libxml2-devel
+          - xorg-x11-server-Xorg
         state: present
         enablerepo: "epel"
 
     - name: Install system packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - curl
@@ -42,66 +62,66 @@
           - gitflow
           - zsh
           - sudo
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
     - name: Install ftp packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - vsftpd
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
     - name: Install go packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - golang
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
     - name: Install perl packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - perl-devel
           - perl-threads
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
     - name: Install python packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - python3
           - python3-devel
-          - pip3
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
     - name: Install file system packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - amazon-efs-utils
           - quota
           - s3fs-fuse
+          - aria2
           - tree
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
     - name: Install system monitoring packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - htop
           - atop
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
 
     - name: Install singularity packages
+      ignore_errors: yes
       ansible.builtin.yum:
         name:
           - libuuid-devel
@@ -109,6 +129,12 @@
           - squashfs-tools
           - singularity-runtime
           - singularity
-        ignore_errors: yes
         state: present
         enablerepo: "epel"
+
+    - name: Install R4
+      ignore_errors: yes
+      become: yes
+      ansible.builtin.shell: |
+        sudo amazon-linux-extras install -y epel
+        sudo amazon-linux-extras install -y R4
