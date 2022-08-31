@@ -21,16 +21,9 @@
       become: yes
       ansible.builtin.shell: |
         sudo amazon-linux-extras install -y epel
-        sudo amazon-linux-extras install -y R4
         sudo yum-config-manager --enable epel
         sudo yum -y groups install "GNOME Desktop"
 
-    - name: Install the 'Gnome desktop' environment group
-      ignore_errors: yes
-      ansible.builtin.yum:
-        name: "@^gnome-desktop-environment"
-        state: present
-        enablerepo: "epel"
 
     - name: Install openssl packages
       ignore_errors: yes
@@ -132,9 +125,17 @@
         state: present
         enablerepo: "epel"
 
-    - name: Install R4
+    - name: Install Gnome Desktop
       ignore_errors: yes
       become: yes
       ansible.builtin.shell: |
         sudo amazon-linux-extras install -y epel
+        sudo yum-config-manager --enable epel
+        sudo yum -y groups install "GNOME Desktop"
+
+    - name: Install R4
+      ignore_errors: yes
+      become: yes
+      poll: 0
+      ansible.builtin.shell: |
         sudo amazon-linux-extras install -y R4

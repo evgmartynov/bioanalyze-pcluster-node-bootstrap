@@ -7,8 +7,9 @@ install:
 
 
 apply-compute: install
-	sudo ansible-playbook ./playbooks/shared/yum.yaml || echo "Yum install had errors"
-	sudo ansible-playbook ./playbooks/shared/spack.yaml || echo "Spack install had errors"
+	echo "Nothing to do here"
+	#sudo ansible-playbook ./playbooks/shared/yum.yaml || echo "Yum install had errors"
+	#sudo ansible-playbook ./playbooks/shared/spack.yaml || echo "Spack install had errors"
 
 apply: install
 	echo "apply"
