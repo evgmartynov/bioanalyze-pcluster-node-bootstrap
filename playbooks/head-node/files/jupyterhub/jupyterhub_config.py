@@ -52,8 +52,8 @@ c.PAMAuthenticator.open_sessions = False
 c.Spawner.debug = True
 c.BatchSpawnerBase.debug = True
 ## Sometimes we have to wait awhile for a node to spin up
-c.Spawner.http_timeout = 60
-c.Spawner.start_timeout = 500
+c.Spawner.http_timeout = 120
+c.Spawner.start_timeout = 900
 
 # ------------------------------------------------------------------------------
 # BatchSpawnerBase configuration
