@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-export SBATCH_PARTITION='dev'
-export SBATCH_CONSTRAINT='m5a4xlarge'
-export SBATCH_EXCLUSIVE=""
-export SLURM_CPUS_PER_TASK='16'
-export SBATCH_CPUS_PER_TASK='16'
+#SBATCH --partition dev
+#SBATCH --constraint m5a4xlarge
+#SBATCH --time 04:00:00
+#SBATCh --exclusive
 
 export SPACK_ROOT=/apps/spack
 source /apps/spack/share/spack/setup-env.sh
