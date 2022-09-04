@@ -8,6 +8,7 @@ source /apps/spack/share/spack/setup-env.sh
 sudo chown -R ec2-user:ec2-user /apps/spack/
 
 spack install \
+  -j 4 \
   --no-check-signature \
   --no-checksum \
   gromacs@2021.1 \
@@ -16,11 +17,13 @@ spack install \
 
 
 spack -d install -v   \
+  -j 4 \
   --no-check-signature \
   --no-checksum \
   gromacs@2022 +openmp +blas +lapack
 
 spack -d install -v   \
+  -j 4 \
   --no-check-signature \
   --no-checksum \
   gromacs@2021 +openmp +blas +lapack
