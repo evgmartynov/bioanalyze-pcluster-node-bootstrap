@@ -36,3 +36,8 @@
         echo "source /apps/spack/share/spack/setup-env.sh" >> spack.sh
         source /apps/spack/share/spack/setup-env.sh
         sudo chown -R ec2-user:ec2-user /apps/spack/
+        
+        # Install the rolling binary cache
+        # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
+        spack mirror add binary_mirror https://binaries.spack.io/develop
+        spack buildcache keys --install --trust

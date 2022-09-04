@@ -73,5 +73,6 @@
         eb --robot=${ROBOT}: --job  \
           --tmp-logdir $HOME/eb_tmplogs \
           easybuild/easyconfigs/miniconda3-4.12.0.eb \
+          easybuild/easyconfigs/r-datascience-4.eb \
           easybuild/easyconfigs/pangeo-notebook-2022.05.10/jupyterlab-2022.05.10.eb \
           easybuild/easyconfigs/easybuild-4.5.4.eb 
