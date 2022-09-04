@@ -13,3 +13,8 @@ echo "export SPACK_ROOT=$SPACK_ROOT" > spack.sh
 echo "source $SPACK_ROOT/share/spack/setup-env.sh" >> spack.sh
 sudo mv spack.sh /etc/profile.d/spack.sh
 source ${SPACK_ROOT}/share/spack/setup-env.sh
+
+# Install the rolling binary cache
+# https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
+spack mirror add binary_mirror https://binaries.spack.io/develop
+spack buildcache keys --install --trust

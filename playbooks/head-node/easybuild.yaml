@@ -11,6 +11,20 @@
         owner: ec2-user
         group: ec2-user
         mode: '0644'
+    - name: Copy bashrc
+      ansible.builtin.copy:
+        src: ./files/.bashrc
+        dest: /home/ec2-user/.bashrc
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
+    - name: Copy submit-interactive
+      ansible.builtin.copy:
+        src: ./files/submit-interactive.sh
+        dest: /home/ec2-user/submit-interactive.sh
+        owner: ec2-user
+        group: ec2-user
+        mode: '0777'
     - name: Easybuild conda env
       conda:
         name:
