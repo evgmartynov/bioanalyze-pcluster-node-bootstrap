@@ -3,7 +3,7 @@
 #SBATCH --partition dev
 #SBATCH --constraint m5a4xlarge
 #SBATCH --time 04:00:00
-#SBATCh --exclusive
+#SBATCH --exclusive
 
 export SPACK_ROOT=/apps/spack
 source /apps/spack/share/spack/setup-env.sh
