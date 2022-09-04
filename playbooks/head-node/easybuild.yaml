@@ -68,6 +68,8 @@
         source activate easybuild4
         pip install "easybuild>=4,<5"
 
+        export SBATCH_EXCLUSIVE=""
+
         cd ${ROBOT}
         export EASYBUILD_JOB_BACKEND='Slurm'
         eb --robot=${ROBOT}: --job  \

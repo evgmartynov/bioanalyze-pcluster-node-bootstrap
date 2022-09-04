@@ -2,6 +2,9 @@
 
 export SBATCH_PARTITION='dev'
 export SBATCH_CONSTRAINT='m5a4xlarge'
+export SBATCH_EXCLUSIVE=""
+export SLURM_CPUS_PER_TASK='16'
+export SBATCH_CPUS_PER_TASK='16'
 
 export SPACK_ROOT=/apps/spack
 source /apps/spack/share/spack/setup-env.sh
