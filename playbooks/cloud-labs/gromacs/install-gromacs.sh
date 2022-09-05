@@ -7,7 +7,6 @@
 
 export SPACK_ROOT=/apps/spack
 source /apps/spack/share/spack/setup-env.sh
-sudo chown -R ec2-user:ec2-user /apps/spack/
 
 # First try to install with the binary cache
 spack install \
