@@ -9,23 +9,25 @@ export SPACK_ROOT=/apps/spack
 source /apps/spack/share/spack/setup-env.sh
 sudo chown -R ec2-user:ec2-user /apps/spack/
 
+# First try to install with the binary cache
 spack install \
   -j 4 \
   --no-check-signature \
   --no-checksum \
-  gromacs@2021.1 \
+  --use-cache \
+  --reuse    \
   gromacs@2021 \
-  gromacs@2022
+  gromacs@2022 \
+  gromacs@2022 +openmp +blas +lapack \
+  gromacs@2021 +openmp +blas +lapack
 
-
-spack -d install -v   \
+spack install \
   -j 4 \
   --no-check-signature \
   --no-checksum \
-  gromacs@2022 +openmp +blas +lapack
-
-spack -d install -v   \
-  -j 4 \
-  --no-check-signature \
-  --no-checksum \
+  --no-cache \
+  --reuse    \
+  gromacs@2021 \
+  gromacs@2022 \
+  gromacs@2022 +openmp +blas +lapack \
   gromacs@2021 +openmp +blas +lapack
