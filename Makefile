@@ -35,4 +35,4 @@ alphafold:
 
 gromacs:
 	echo "Installing gromacs"
-	ansible-playbook ./playbooks/cloud-labs/gromacs.yaml
+	ansible-playbook ./playbooks/cloud-labs/gromacs/gromacs.yaml
