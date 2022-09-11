@@ -1,0 +1,15 @@
+---
+
+- name: Force install jupyterlab
+  hosts: localhost
+  tasks:
+    - name: Install easybuild modules
+      become: yes
+      ansible.builtin.shell: |
+        source /usr/share/lmod/lmod/init/bash
+        cd /home/ec2-user/bootstrap-scripts
+        # bootstrap-scripts/install_all_the_things.sh 
+        sudo ./install_all_the_things.sh
+
+- name: Restart services
+  ansible.builtin.import_playbook: ./restart-services.yaml

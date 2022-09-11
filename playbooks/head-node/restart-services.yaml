@@ -1,0 +1,16 @@
+---
+- name: Restart services
+  hosts: localhost
+  tasks:
+    - name: Restart Jupyterhub service
+      become: yes
+      ansible.builtin.shell: |
+        sudo systemctl daemon-reload
+        sudo systemctl enable daskgateway
+        sudo systemctl start daskgateway
+        sudo systemctl enable jupyterhub
+        sudo systemctl start jupyterhub
+    - name: Restart Slurm service
+      become: yes
+      ansible.builtin.shell: |
+        sudo systemctl enable slurmctld 
