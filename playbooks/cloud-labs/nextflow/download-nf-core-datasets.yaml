@@ -1,0 +1,21 @@
+---
+- name: Include nextflow
+  ansible.builtin.import_playbook: ./nextflow.yaml
+- name: Download nf-core datasets
+  hosts: localhost
+  tasks:
+    - name: Create nextflow core datasets directory
+      become: yes
+      ansible.builtin.file:
+        path: /scratch/reference/nextflow_core_datasets
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: NF-Core Datasets - RNASeq
+      ansible.builtin.git:
+        repo: https://github.com/nf-core/test-datasets
+        dest: /scratch/reference/nextflow_core_datasets/rnaseq
+        force: yes
+        branch: rnaseq
+        single_branch: yes

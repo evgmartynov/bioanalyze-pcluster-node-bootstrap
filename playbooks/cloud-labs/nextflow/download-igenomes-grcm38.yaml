@@ -1,0 +1,23 @@
+---
+- name: Include nextflow
+  ansible.builtin.import_playbook: ./nextflow.yaml
+- name: Download igenomes
+  hosts: localhost
+  tasks:
+    - name: Create alphafold data directory
+      become: yes
+      ansible.builtin.file:
+        path: /scratch/reference/igenomes
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: chmod
+      ansible.builtin.shell: |
+        chmod 777 *sh
+    - name: download igenomes - GRCm38
+      ansible.builtin.shell: |
+        export SBATCH_EXCLUSIVE=""
+        sbatch ./download-igenomes-grcm38.sh
+      args:
+        creates: /scratch/reference/igenomes/Mus_musculus/Ensembl/GRCm38

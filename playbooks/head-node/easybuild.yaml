@@ -69,6 +69,7 @@
         pip install "easybuild>=4,<5"
 
         export SBATCH_EXCLUSIVE=""
+        export SBATCH_PARTITION="dev"
 
         cd ${ROBOT}
         export EASYBUILD_JOB_BACKEND='Slurm'
