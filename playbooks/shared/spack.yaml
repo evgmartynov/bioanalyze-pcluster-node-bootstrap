@@ -1,8 +1,0 @@
----
-- name: Spack Config
-  hosts: localhost
-  tasks:
-    - name: Copy spack packages file
-      ansible.builtin.copy:
-        src: ./files/spack.sh
-        dest: /etc/profile.d/spack.sh

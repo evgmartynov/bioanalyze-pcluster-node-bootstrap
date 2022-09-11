@@ -1,5 +1,6 @@
-#https://raw.githubusercontent.com/deepmind/alphafold/v2.2.2/scripts/download_all_data.sh
 ---
+- name: Include alphafold
+  ansible.builtin.import_playbook: ./alphafold.yaml
 - name: Download alphafold
   hosts: localhost
   tasks:

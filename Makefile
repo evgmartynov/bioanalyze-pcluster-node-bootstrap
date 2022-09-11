@@ -3,6 +3,7 @@ help : Makefile
 	@echo "Commands to bootstrap your nodes"
 
 install:
+	@echo "Installing ansible"
 	sudo yum install -y ansible
 	# leave both in
 	# we need the conda role as sudo and as the user!
@@ -17,9 +18,8 @@ apply-compute: install
 
 apply: install
 	echo "apply"
-	sudo ansible-playbook ./playbooks/shared/yum.yaml || echo "yum install had errors"
+	ansible-playbook ./playbooks/shared/yum.yaml || echo "yum install had errors"
 	ansible-playbook ./playbooks/head-node/spack.yaml
-	ansible-playbook ./playbooks/shared/spack.yaml
 	ansible-playbook ./playbooks/head-node/prepare.yaml
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
 	ansible-playbook ./playbooks/head-node/jupyterhub.yaml
@@ -31,11 +31,14 @@ easybuild:
 spack:
 	echo "Installing spack"
 	ansible-playbook ./playbooks/head-node/spack.yaml
-	ansible-playbook ./playbooks/shared/spack.yaml
 
 alphafold:
 	echo "Installing alphafold"
 	ansible-playbook ./playbooks/cloud-labs/alphafold/alphafold.yaml
+
+alphafold/data:
+	echo "Downloading alphafold data"
+	ansible-playbook ./playbooks/cloud-labs/alphafold/download-data.yaml
 
 gromacs:
 	echo "Installing gromacs"
