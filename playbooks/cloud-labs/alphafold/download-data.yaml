@@ -1,0 +1,21 @@
+#https://raw.githubusercontent.com/deepmind/alphafold/v2.2.2/scripts/download_all_data.sh
+---
+- name: Download alphafold
+  hosts: localhost
+  tasks:
+    - name: Create alphafold data directory
+      become: yes
+      ansible.builtin.file:
+        path: /scratch/references/alphafold
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
+    - name: chmod
+      ansible.builtin.shell: |
+        chmod 777 *sh
+    - name: download alphafold params
+      ansible.builtin.shell: |
+        sbatch ./download_alphafold_params.sh
+      args:
+        creates: /scratch/reference/alphafold/params

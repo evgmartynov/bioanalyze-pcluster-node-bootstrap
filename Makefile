@@ -1,6 +1,6 @@
 .PHONY : help
 help : Makefile
-	@sed -n 's/^##//p' $<
+	@echo "Commands to bootstrap your nodes"
 
 install:
 	sudo yum install -y ansible
@@ -24,12 +24,12 @@ apply: install
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
 	ansible-playbook ./playbooks/head-node/jupyterhub.yaml
 
-
 # Software specific makes
 easybuild:
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
 
 spack:
+	echo "Installing spack"
 	ansible-playbook ./playbooks/head-node/spack.yaml
 	ansible-playbook ./playbooks/shared/spack.yaml
 
