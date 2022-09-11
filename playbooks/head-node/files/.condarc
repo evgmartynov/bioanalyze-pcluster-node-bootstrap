@@ -4,7 +4,7 @@ channels:
   - conda-forge
   - bioconda
   - defaults
-channel_priority: strict
+#channel_priority: strict
 create_default_packages:
   - setuptools
-verbosity: 3
+verbosity: 2
