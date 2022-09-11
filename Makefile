@@ -1,3 +1,7 @@
+.PHONY : help
+help : Makefile
+	@sed -n 's/^##//p' $<
+
 install:
 	sudo yum install -y ansible
 	# leave both in
