@@ -21,7 +21,7 @@ set -e
 
 DOWNLOAD_DIR="/scratch/reference/alphafold"
 
-sudo yum install -y aria2c
+sudo yum install -y aria2
 
 if ! command -v aria2c &> /dev/null ; then
     echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."

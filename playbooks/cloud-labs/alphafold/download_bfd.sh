@@ -21,7 +21,7 @@ set -e
 
 DOWNLOAD_DIR="/scratch/reference/alphafold"
 
-sudo yum install -y aria2c
+sudo yum install -y aria2
 
 ROOT_DIR="${DOWNLOAD_DIR}/bfd"
 # Mirror of:

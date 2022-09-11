@@ -19,8 +19,9 @@
 # Usage: bash download_mgnify.sh /path/to/download/directory
 set -e
 
+sudo yum install -y aria2
+
 DOWNLOAD_DIR="/scratch/reference/alphafold"
-sudo yum install -y aria2c
 ROOT_DIR="${DOWNLOAD_DIR}/mgnify"
 # Mirror of:
 # ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2018_12/mgy_clusters.fa.gz

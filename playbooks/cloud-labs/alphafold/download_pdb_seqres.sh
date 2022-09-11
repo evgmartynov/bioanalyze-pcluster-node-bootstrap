@@ -19,7 +19,7 @@
 # Usage: bash download_pdb_seqres.sh /path/to/download/directory
 set -e
 
-sudo yum install -y aria2c
+sudo yum install -y aria2
 
 DOWNLOAD_DIR="/scratch/reference/alphafold"
 
