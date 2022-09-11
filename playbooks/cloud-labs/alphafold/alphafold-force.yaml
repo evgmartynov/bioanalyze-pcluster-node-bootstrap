@@ -20,6 +20,7 @@
         export SBATCH_EXCLUSIVE=""
 
         cd ${ROBOT}
+        rm -rf /apps/easybuild/4.5.4/software/.locks
         export EASYBUILD_JOB_BACKEND='Slurm'
         eb --robot=${ROBOT}: --job  \
           --tmp-logdir $HOME/eb_tmplogs \
