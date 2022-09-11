@@ -2,6 +2,11 @@
 help : Makefile
 	@echo "Commands to bootstrap your nodes"
 
+##################################
+# Main installation and
+# bootstrapping operations
+##################################
+
 install:
 	@echo "Installing ansible"
 	sudo yum install -y ansible
@@ -24,7 +29,10 @@ apply: install
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
 	ansible-playbook ./playbooks/head-node/jupyterhub.yaml
 
-# Software specific makes
+##################################
+# Install software and data
+##################################
+
 easybuild:
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
 
@@ -43,3 +51,15 @@ alphafold/data:
 gromacs:
 	echo "Installing gromacs"
 	ansible-playbook ./playbooks/cloud-labs/gromacs/gromacs.yaml
+
+##################################
+# Troubleshooting
+##################################
+
+troubleshoot: install
+	echo "troubleshoot"
+	ansible-playbook ./playbooks/head-node/troubleshoot.yaml
+
+troubleshoot/restart-services: install
+	echo "troubleshoot/restart-services"
+	ansible-playbook ./playbooks/head-node/restart-services.yaml
