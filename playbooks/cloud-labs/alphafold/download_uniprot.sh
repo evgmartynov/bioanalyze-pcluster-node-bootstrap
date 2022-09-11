@@ -20,17 +20,9 @@
 # Usage: bash download_uniprot.sh /path/to/download/directory
 set -e
 
-if [[ $# -eq 0 ]]; then
-    echo "Error: download directory must be provided as an input argument."
-    exit 1
-fi
+sudo yum install -y aria2c
 
-if ! command -v aria2c &> /dev/null ; then
-    echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."
-    exit 1
-fi
-
-DOWNLOAD_DIR="$1"
+DOWNLOAD_DIR="/scratch/reference/alphafold"
 ROOT_DIR="${DOWNLOAD_DIR}/uniprot"
 
 TREMBL_SOURCE_URL="ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.fasta.gz"

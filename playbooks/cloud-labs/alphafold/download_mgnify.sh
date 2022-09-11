@@ -19,17 +19,8 @@
 # Usage: bash download_mgnify.sh /path/to/download/directory
 set -e
 
-if [[ $# -eq 0 ]]; then
-    echo "Error: download directory must be provided as an input argument."
-    exit 1
-fi
-
-if ! command -v aria2c &> /dev/null ; then
-    echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."
-    exit 1
-fi
-
-DOWNLOAD_DIR="$1"
+DOWNLOAD_DIR="/scratch/reference/alphafold"
+sudo yum install -y aria2c
 ROOT_DIR="${DOWNLOAD_DIR}/mgnify"
 # Mirror of:
 # ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2018_12/mgy_clusters.fa.gz
