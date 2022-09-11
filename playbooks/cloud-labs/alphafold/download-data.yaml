@@ -39,11 +39,11 @@
         sbatch ./download_pdb_mmcif.sh
       args:
         creates: /scratch/reference/alphafold/pdb_mmcif
-    - name: download alphafold pcb_seqres
+    - name: download alphafold pdb_seqres
       ansible.builtin.shell: |
-        sbatch ./download_pcb_seqres.sh
+        sbatch ./download_pdb_seqres.sh
       args:
-        creates: /scratch/reference/alphafold/pcb_seqres
+        creates: /scratch/reference/alphafold/pdb_seqres
     - name: download alphafold pdb_seqres
       ansible.builtin.shell: |
         sbatch ./download_pdb_seqres.sh
