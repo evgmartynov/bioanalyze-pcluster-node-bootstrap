@@ -28,7 +28,7 @@
     - name: Easybuild conda env
       conda:
         name:
-          - python=3.7
+          - python=3.8
           - pip
         environment: easybuild4
         state: present
