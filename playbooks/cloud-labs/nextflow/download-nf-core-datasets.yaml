@@ -17,5 +17,5 @@
         repo: https://github.com/nf-core/test-datasets
         dest: /scratch/reference/nextflow_core_datasets/rnaseq
         force: yes
-        branch: rnaseq
+        refspec: rnaseq
         single_branch: yes
