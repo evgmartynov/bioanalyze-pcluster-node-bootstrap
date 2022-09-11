@@ -4,6 +4,7 @@
   hosts: localhost
   tasks:
     - name: Create easybuild apps directory
+      become: yes
       ansible.builtin.file:
         path: /apps/easybuild/4.5.4
         state: directory
@@ -11,6 +12,7 @@
         owner: ec2-user
         group: ec2-user
     - name: Create easybuild modules directory
+      become: yes
       ansible.builtin.file:
         path: /apps/easybuild/4.5.4/modules/all
         state: directory
@@ -18,6 +20,7 @@
         owner: ec2-user
         group: ec2-user
     - name: Create software-configs
+      become: yes
       ansible.builtin.file:
         path: /apps/software-configs
         state: directory
@@ -25,6 +28,7 @@
         owner: ec2-user
         group: ec2-user
     - name: Create jupyterhub config
+      become: yes
       ansible.builtin.file:
         path: /apps/software-configs/jupyterhub
         state: directory
@@ -32,6 +36,7 @@
         owner: ec2-user
         group: ec2-user
     - name: Scratch reference
+      become: yes
       ansible.builtin.file:
         path: /scratch/reference
         state: directory

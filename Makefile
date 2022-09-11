@@ -7,15 +7,32 @@ install:
 
 
 apply-compute: install
+	# This is here as a place holder
+	# Anything you add here will include the launch time of a node!
 	echo "Nothing to do here"
-	#sudo ansible-playbook ./playbooks/shared/yum.yaml || echo "Yum install had errors"
-	#sudo ansible-playbook ./playbooks/shared/spack.yaml || echo "Spack install had errors"
 
 apply: install
 	echo "apply"
 	sudo ansible-playbook ./playbooks/shared/yum.yaml || echo "yum install had errors"
-	sudo ansible-playbook ./playbooks/head-node/spack.yaml
-	sudo ansible-playbook ./playbooks/shared/spack.yaml
-	sudo ansible-playbook ./playbooks/head-node/prepare.yaml
+	ansible-playbook ./playbooks/head-node/spack.yaml
+	ansible-playbook ./playbooks/shared/spack.yaml
+	ansible-playbook ./playbooks/head-node/prepare.yaml
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
-	sudo ansible-playbook ./playbooks/head-node/jupyterhub.yaml
+	ansible-playbook ./playbooks/head-node/jupyterhub.yaml
+
+
+# Software specific makes
+easybuild:
+	ansible-playbook ./playbooks/head-node/easybuild.yaml
+
+spack:
+	ansible-playbook ./playbooks/head-node/spack.yaml
+	ansible-playbook ./playbooks/shared/spack.yaml
+
+alphafold:
+	echo "Installing alphafold"
+	ansible-playbook ./playbooks/cloud-labs/alphafold/alphafold.yaml
+
+gromacs:
+	echo "Installing gromacs"
+	ansible-playbook ./playbooks/cloud-labs/gromacs.yaml

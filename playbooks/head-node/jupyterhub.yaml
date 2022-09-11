@@ -3,6 +3,7 @@
   hosts: localhost
   tasks:
     - name: Create jupyterhub config and scripts directory
+      become: yes
       ansible.builtin.file:
         path: /apps/software-configs/jupyterhub
         state: directory
@@ -10,34 +11,42 @@
         owner: ec2-user
         group: ec2-user
     - name: Copy Dask Gateway Service
+      become: yes
       ansible.builtin.copy:
         src: ./files/jupyterhub/daskgateway.service
         dest: /usr/lib/systemd/system/daskgateway.service
     - name: Copy Jupyterhub Service
+      become: yes
       ansible.builtin.copy:
         src: ./files/jupyterhub/jupyterhub.service
         dest: /usr/lib/systemd/system/jupyterhub.service
     - name: Copy Jupyterhub Config
+      become: yes
       ansible.builtin.copy:
         src: ./files/jupyterhub/jupyterhub_config.py
         dest: /apps/software-configs/jupyterhub/jupyterhub_config.py
     - name: Copy Dask Gateway Config
+      become: yes
       ansible.builtin.copy:
         src: ./files/jupyterhub/dask_gateway_config.py
         dest: /apps/software-configs/jupyterhub/dask_gateway_config.py
     - name: Copy Jupyterhub Service Script
+      become: yes
       ansible.builtin.copy:
         src: ./files/jupyterhub/run-jupyterhub.sh
         dest: /apps/software-configs/jupyterhub/run-jupyterhub.sh
     - name: Copy Dask Gateway Service Script
+      become: yes
       ansible.builtin.copy:
         src: ./files/jupyterhub/run-daskgateway.sh
         dest: /apps/software-configs/jupyterhub/run-daskgateway.sh
     - name: Copy Secure Path
+      become: yes
       ansible.builtin.copy:
         src: ./files/jupyterhub/99-parallellcluster-secure-path
         dest: /etc/sudoers.d/99-parallellcluster-secure-path
     - name: Start Jupyterhub service
+      become: yes
       ansible.builtin.shell: |
         sudo systemctl daemon-reload
         sudo systemctl enable daskgateway
