@@ -41,8 +41,16 @@
     # TODO this needs to be done per node
     - name: Create spack source script
       ansible.builtin.shell: |
-        export SPACK_ROOT=/apps/spack
-        source /apps/spack/share/spack/setup-env.sh
+        export SPACK_ROOT=/apps/spack/0.18.1
+        source /apps/spack/share/spack/0.18.1/setup-env.sh
+        
+        # Install the rolling binary cache
+        # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
+        spack mirror add binary_mirror https://binaries.spack.io/develop
+        spack buildcache keys --install --trust
+        
+        export SPACK_ROOT=/apps/spack/0.19.0
+        source /apps/spack/share/spack/0.19.0/setup-env.sh
         
         # Install the rolling binary cache
         # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/

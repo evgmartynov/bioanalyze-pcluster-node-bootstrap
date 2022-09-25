@@ -5,8 +5,8 @@
 #SBATCH --time 1-00:00:00
 #SBATCH --exclusive
 
-export SPACK_ROOT=/apps/spack
-source /apps/spack/share/spack/setup-env.sh
+export SPACK_ROOT=/apps/spack/0.18.1
+source /apps/spack/share/spack/0.18.1/setup-env.sh
 
 # First try to install with the binary cache
 spack install \
