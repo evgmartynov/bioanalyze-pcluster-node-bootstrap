@@ -26,10 +26,16 @@
         mode: '0755'
         owner: ec2-user
         group: ec2-user
-    - name: Git checkout
+    - name: Git checkout - develop
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
-        dest: /apps/spack
+        dest: /apps/spack/0.19.0
+        branch: develop
+        force: yes
+    - name: Git checkout - 0.18.1
+      ansible.builtin.git:
+        repo: https://github.com/spack/spack.git
+        dest: /apps/spack/0.18.1
         version: v0.18.1
         force: yes
     # TODO this needs to be done per node
