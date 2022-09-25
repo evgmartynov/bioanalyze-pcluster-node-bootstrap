@@ -6,8 +6,7 @@
 #SBATCH --exclusive
 
 export SPACK_ROOT=/apps/spack/0.19.0
-source /apps/spack/share/spack/0.19.0/setup-env.sh
-
+source /apps/spack/0.19.0/share/spack/setup-env.sh
 
 # First try to install with the binary cache
 spack install \

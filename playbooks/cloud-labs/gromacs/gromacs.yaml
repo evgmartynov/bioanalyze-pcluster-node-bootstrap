@@ -8,14 +8,8 @@
     - name: Install gromacs with sbatch
       ansible.builtin.shell: |
         export SPACK_ROOT=/apps/spack/0.19.0
-        source /apps/spack/share/spack/0.19.0/setup-env.sh
+        source /apps/spack/0.19.0/share/setup-env.sh
         
-        # Install the rolling binary cache
-        # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
-        spack mirror add binary_mirror https://binaries.spack.io/develop
-        spack buildcache keys --install --trust
-        
-        cd /home/ec2-user
         chmod 777 install-gromacs.sh
         echo "Submitting gromacs job to slurm"
         sbatch ./install-gromacs.sh
