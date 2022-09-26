@@ -7,8 +7,6 @@
   tasks:
     - name: Install relion with sbatch
       ansible.builtin.shell: |
-        export SPACK_ROOT=/apps/spack/0.19.
-        source /apps/spack/0.19.0/share/spack/setup-env.sh
         chmod 777 install-relion.sh
         echo "Submitting relion job to slurm"
         sbatch ./install-relion.sh
