@@ -7,9 +7,6 @@
   tasks:
     - name: Install gromacs with sbatch
       ansible.builtin.shell: |
-        export SPACK_ROOT=/apps/spack/0.19.0
-        source /apps/spack/0.19.0/share/setup-env.sh
-        
         chmod 777 install-gromacs.sh
         echo "Submitting gromacs job to slurm"
         sbatch ./install-gromacs.sh

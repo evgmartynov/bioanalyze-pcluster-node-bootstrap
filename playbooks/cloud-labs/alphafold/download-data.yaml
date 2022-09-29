@@ -17,56 +17,56 @@
         chmod 777 *sh
     - name: download alphafold params
       ansible.builtin.shell: |
-        sbatch ./download_alphafold_params.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_alphafold_params.sh
       args:
         creates: /scratch/reference/alphafold/params
     - name: download alphafold bfd
       ansible.builtin.shell: |
-        sbatch ./download_bfd.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_bfd.sh
       args:
         creates: /scratch/reference/alphafold/bfd
     - name: download alphafold mgnify
       ansible.builtin.shell: |
-        sbatch ./download_mgnify.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_mgnify.sh
       args:
         creates: /scratch/reference/alphafold/mgnify
     - name: download alphafold pdb70
       ansible.builtin.shell: |
-        sbatch ./download_pdb70.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_pdb70.sh
       args:
         creates: /scratch/reference/alphafold/pdb70
     - name: download alphafold pdb_mmcif
       ansible.builtin.shell: |
-        sbatch ./download_pdb_mmcif.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_pdb_mmcif.sh
       args:
         creates: /scratch/reference/alphafold/pdb_mmcif
     - name: download alphafold pdb_seqres
       ansible.builtin.shell: |
-        sbatch ./download_pdb_seqres.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_pdb_seqres.sh
       args:
         creates: /scratch/reference/alphafold/pdb_seqres
     - name: download alphafold pdb_seqres
       ansible.builtin.shell: |
-        sbatch ./download_pdb_seqres.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_pdb_seqres.sh
       args:
         creates: /scratch/reference/alphafold/pdb_seqres
     - name: download alphafold small_bfd
       ansible.builtin.shell: |
-        sbatch ./download_small_bfd.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_small_bfd.sh
       args:
         creates: /scratch/reference/alphafold/small_bfd
     - name: download alphafold uniclust30
       ansible.builtin.shell: |
-        sbatch ./download_uniclust30.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_uniclust30.sh
       args:
         creates: /scratch/reference/alphafold/uniclust30
     - name: download alphafold uniprot
       ansible.builtin.shell: |
-        sbatch ./download_uniprot.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_uniprot.sh
       args:
         creates: /scratch/reference/alphafold/uniprot
     - name: download alphafold uniref90
       ansible.builtin.shell: |
-        sbatch ./download_uniref90.sh
+        sbatch --exclusive --time 1-00:00:00 ./download_uniref90.sh
       args:
         creates: /scratch/reference/alphafold/uniref90
