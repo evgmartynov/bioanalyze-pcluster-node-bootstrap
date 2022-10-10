@@ -9,21 +9,21 @@ help : Makefile
 
 install:
 	@echo "Installing ansible"
-	sudo yum install -y ansible
+	sudo python3 -m pip install ansible
 	# leave both in
 	# we need the conda role as sudo and as the user!
 	sudo ansible-galaxy install evandam.conda
 	ansible-galaxy install evandam.conda
 
 
-apply-compute: install
+apply-compute:
 	# This is here as a place holder
 	# Anything you add here will include the launch time of a node!
+	#$(MAKE) install
 	echo "Nothing to do here"
 
-apply: install
+apply:
 	echo "apply"
-	ansible-playbook ./playbooks/shared/yum.yaml || echo "yum install had errors"
 	ansible-playbook ./playbooks/head-node/spack.yaml
 	ansible-playbook ./playbooks/head-node/prepare.yaml
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
