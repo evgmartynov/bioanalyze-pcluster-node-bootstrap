@@ -6,6 +6,7 @@
   tasks:
     - name: Create alphafold data directory
       become: yes
+      become_user: ec2-user
       ansible.builtin.file:
         path: /scratch/reference/igenomes
         state: directory
@@ -16,6 +17,7 @@
       ansible.builtin.shell: |
         chmod 777 *sh
     - name: download igenomes - GRCm38
+      become: yes
       ansible.builtin.shell: |
         export SBATCH_EXCLUSIVE=""
         sbatch ./download-igenomes-grcm38.sh

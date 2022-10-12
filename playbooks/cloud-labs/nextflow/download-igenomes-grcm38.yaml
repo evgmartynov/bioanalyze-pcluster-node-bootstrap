@@ -6,6 +6,7 @@
   tasks:
     - name: Create alphafold data directory
       become: yes
+      become_user: ec2-user
       ansible.builtin.file:
         path: /scratch/reference/igenomes
         state: directory

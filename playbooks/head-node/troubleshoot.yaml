@@ -1,6 +1,6 @@
 ---
 
-- name: Force install jupyterlab
+- name: Force rerun bootstrap scripts
   hosts: localhost
   tasks:
     - name: Rerun bootstrap scripts

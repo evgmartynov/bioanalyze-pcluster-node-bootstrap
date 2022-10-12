@@ -6,6 +6,8 @@
   hosts: localhost
   tasks:
     - name: Install relion with sbatch
+      become: yes
+      become_user: ec2-user
       ansible.builtin.shell: |
         chmod 777 install-relion.sh
         echo "Submitting relion job to slurm"

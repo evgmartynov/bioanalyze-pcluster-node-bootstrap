@@ -6,6 +6,8 @@
   hosts: localhost
   tasks:
     - name: Install gromacs with sbatch
+      become: yes
+      become_user: ec2-user
       ansible.builtin.shell: |
         chmod 777 install-gromacs.sh
         echo "Submitting gromacs job to slurm"

@@ -6,6 +6,8 @@
   hosts: localhost
   tasks:
     - name: Install easybuild modules
+      become: yes
+      become_user: ec2-user
       ansible.builtin.shell: |
         source /usr/share/lmod/lmod/init/bash
 

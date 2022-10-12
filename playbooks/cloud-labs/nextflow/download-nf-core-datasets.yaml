@@ -13,6 +13,8 @@
         owner: ec2-user
         group: ec2-user
     - name: NF-Core Datasets - RNASeq
+      become: yes
+      become_user: ec2-user
       ansible.builtin.git:
         repo: https://github.com/nf-core/test-datasets
         dest: /scratch/reference/nextflow_core_datasets/rnaseq

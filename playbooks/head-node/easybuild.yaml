@@ -5,6 +5,8 @@
     - role: evandam.conda
   tasks:
     - name: Copy condarc
+      become: yes
+      become_user: ec2-user
       ansible.builtin.copy:
         src: ./files/.condarc
         dest: /home/ec2-user/.condarc
@@ -12,6 +14,8 @@
         group: ec2-user
         mode: '0644'
     - name: Copy bashrc
+      become: yes
+      become_user: ec2-user
       ansible.builtin.copy:
         src: ./files/.bashrc
         dest: /home/ec2-user/.bashrc
@@ -19,6 +23,8 @@
         group: ec2-user
         mode: '0644'
     - name: Copy submit-interactive
+      become: yes
+      become_user: ec2-user
       ansible.builtin.copy:
         src: ./files/submit-interactive.sh
         dest: /home/ec2-user/submit-interactive.sh
@@ -26,17 +32,16 @@
         group: ec2-user
         mode: '0777'
     - name: Easybuild conda env
+      become: yes
+      become_user: ec2-user
       conda:
         name:
           - python=3.7
           - pip
         environment: easybuild4
         state: present
-    # You can use shell to run other executables to perform actions inline
-    - name: Pip install easybuild
-      ansible.builtin.shell: |
-        exit 0
     - name: Create easybuild apps directory
+      become: yes
       ansible.builtin.file:
         path: /apps/easybuild/4.5.4
         state: directory
@@ -44,6 +49,7 @@
         owner: ec2-user
         group: ec2-user
     - name: Create easybuild modules directory
+      become: yes
       ansible.builtin.file:
         path: /apps/easybuild/4.5.4/modules/all
         state: directory
@@ -51,11 +57,15 @@
         owner: ec2-user
         group: ec2-user
     - name: Git checkout
+      become: yes
+      become_user: ec2-user
       ansible.builtin.git:
         repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-easyconfigs
         dest: /apps/software-configs/bioanalyze-easyconfigs
         force: yes
     - name: Install easybuild modules
+      become: yes
+      become_user: ec2-user
       ansible.builtin.shell: |
         source /usr/share/lmod/lmod/init/bash
 

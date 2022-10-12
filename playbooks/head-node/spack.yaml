@@ -4,6 +4,7 @@
   tasks:
     - name: Create spack packages directory
       become: yes
+      become_user: ec2-user
       ansible.builtin.file:
         dest: /home/ec2-user/.spack
         state: directory
@@ -12,6 +13,7 @@
         group: ec2-user
     - name: Copy spack packages file
       become: yes
+      become_user: ec2-user
       ansible.builtin.copy:
         src: ./files/spack/spack-packages.yaml
         dest: /home/ec2-user/.spack/packages.yaml
@@ -20,6 +22,7 @@
         mode: '0644'
     - name: Create spack apps directory
       become: yes
+      become_user: ec2-user
       ansible.builtin.file:
         path: /apps/spack
         state: directory
@@ -27,12 +30,16 @@
         owner: ec2-user
         group: ec2-user
     - name: Git checkout - develop
+      become: yes
+      become_user: ec2-user
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
         dest: /apps/spack/0.19.0
         version: develop
         force: yes
     - name: Git checkout - 0.18.1
+      become: yes
+      become_user: ec2-user
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
         dest: /apps/spack/0.18.1
@@ -40,6 +47,8 @@
         force: yes
 
     - name: Create spack source script - 0.18.1
+      become: yes
+      become_user: ec2-user
       ansible.builtin.shell: |
         export SPACK_ROOT=/apps/spack/0.18.1
         source /apps/spack/0.18.1/share/spack/setup-env.sh 
@@ -50,6 +59,8 @@
         spack buildcache keys --install --trust
 
     - name: Create spack source script - 0.19.0
+      become: yes
+      become_user: ec2-user
       ansible.builtin.shell: |
         export SPACK_ROOT=/apps/spack/0.19.0
         source /apps/spack/0.19.0/share/spack/setup-env.sh 
