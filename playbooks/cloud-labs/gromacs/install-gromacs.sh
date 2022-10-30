@@ -16,23 +16,9 @@ spack install \
   --use-cache \
   --reuse    \
   gromacs@2021 \
-  gromacs@2022
-
-spack install \
-  -j 4 \
-  --no-check-signature \
-  --no-checksum \
-  --use-cache \
-  --reuse    \
-  gromacs@2022 +openmp +blas +lapack \
-  gromacs@2021 +openmp +blas +lapack
-
-spack install \
-  -j 4 \
-  --no-check-signature \
-  --no-checksum \
-  --no-cache \
-  --reuse    \
+  gromacs@2022 \
+  gromacs@2022 +cuda ~mpi \
+  gromacs@2021 +cuda ~mpi \
   gromacs@2022 +openmp +blas +lapack \
   gromacs@2021 +openmp +blas +lapack
 
@@ -43,4 +29,8 @@ spack install \
   --no-cache \
   --reuse    \
   gromacs@2021 \
-  gromacs@2022
+  gromacs@2022 \
+  gromacs@2021 +cuda ~mpi \
+  gromacs@2022 +cuda ~mpi \
+  gromacs@2022 +openmp +blas +lapack \
+  gromacs@2021 +openmp +blas +lapack
