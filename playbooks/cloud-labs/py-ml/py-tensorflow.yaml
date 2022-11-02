@@ -1,0 +1,14 @@
+---
+- name: Include spack
+  ansible.builtin.import_playbook: ../../head-node/spack.yaml
+
+- name: Install Tensorflow
+  hosts: localhost
+  tasks:
+    - name: Install tensorflow with sbatch
+      become: yes
+      become_user: ec2-user
+      ansible.builtin.shell: |
+        chmod 777 install-tensorflow.sh
+        echo "Submitting tensorflow job to slurm"
+        sbatch ./install-tensorflow.sh
