@@ -15,7 +15,7 @@ spack install \
   --no-checksum \
   --use-cache \
   --reuse    \
-  r-tidyverse@1.3.2 r-seurat
+  r-tidyverse@1.3.2 r-seurat r-shiny
 
 spack install \
   -j 4 \
@@ -23,4 +23,4 @@ spack install \
   --no-checksum \
   --no-cache \
   --reuse    \
-  r-tidyverse@1.3.2 r-seurat
+  r-tidyverse@1.3.2 r-seurat r-shiny
