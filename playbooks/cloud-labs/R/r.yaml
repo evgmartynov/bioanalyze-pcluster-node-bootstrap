@@ -1,0 +1,14 @@
+---
+- name: Include spack
+  ansible.builtin.import_playbook: ../../head-node/spack.yaml
+
+- name: Install R
+  hosts: localhost
+  tasks:
+    - name: Install R with sbatch
+      become: yes
+      become_user: ec2-user
+      ansible.builtin.shell: |
+        chmod 777 install-r.sh
+        echo "Submitting R job to slurm"
+        sbatch ./install-r.sh
