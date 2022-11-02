@@ -79,3 +79,27 @@ c.JupyterHub.allow_named_servers = True
 c.JupyterHub.services = [
     {"name": "dask-gateway", "api_token": API_TOKEN}
 ]
+
+#################################################################
+# ContainDS
+#################################################################
+
+from batchspawner import SlurmSpawner
+from cdsdashboards.hubextension.spawners.variablemixin import VariableMixin, MetaVariableMixin
+
+class VariableSlurmSpawner(PClusterSlurmSpawner, VariableMixin, metaclass=MetaVariableMixin):
+    pass
+
+#c.JupyterHub.spawner_class = PClusterSlurmSpawner
+c.JupyterHub.allow_named_servers = True
+c.JupyterHub.spawner_class = VariableSlurmSpawner
+c.VariableMixin.default_presentation_cmd = ['jhsingle-native-proxy']
+c.CDSDashboardsConfig.builder_class = 'cdsdashboards.builder.processbuilder.ProcessBuilder'
+
+from cdsdashboards.app import CDS_TEMPLATE_PATHS
+from cdsdashboards.hubextension import cds_extra_handlers
+
+
+c.JupyterHub.template_paths = CDS_TEMPLATE_PATHS
+c.JupyterHub.extra_handlers = cds_extra_handlers
+c.CDSDashboardsConfig.allow_custom_conda_env = True
