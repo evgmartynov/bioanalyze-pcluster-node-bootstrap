@@ -37,10 +37,12 @@ source /usr/share/lmod/lmod/init/bash
 #############################################################
 export EASYBUILD_PREFIX=/apps/easybuild/4.5.4
 export MODULEPATH=/apps/easybuild/4.5.4/modules/all
-export ROBOT=/app/software-configs
+export ROBOT=/app/software-configs/bioanalyze-easyconfigs
 
 #############################################################
 # Spack
 #############################################################
-export SPACK_ROOT=/apps/spack
-source /apps/spack/share/spack/setup-env.sh
+export SPACK_ROOT=/apps/spack/0.19.0
+source /apps/spack/0.19.0//share/spack/setup-env.sh
+
+alias 'conda'='/apps/easybuild/4.5.4/software/Miniconda3/4.12.0/bin/mamba'
