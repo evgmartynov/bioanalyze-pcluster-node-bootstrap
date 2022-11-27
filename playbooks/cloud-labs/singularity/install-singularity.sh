@@ -18,7 +18,8 @@ spack install \
   --no-checksum \
   --use-cache \
   --reuse    \
-  singularity
+  singularity ~suid
+
 
 spack install \
   -j 4 \
@@ -26,4 +27,4 @@ spack install \
   --no-checksum \
   --no-cache \
   --reuse    \
-  singularity
+  singularity ~suid
