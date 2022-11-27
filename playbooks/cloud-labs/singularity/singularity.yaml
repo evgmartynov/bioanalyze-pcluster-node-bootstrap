@@ -1,0 +1,14 @@
+---
+- name: Include spack
+  ansible.builtin.import_playbook: ../../head-node/spack.yaml
+
+- name: Install Singularity
+  hosts: localhost
+  tasks:
+    - name: Install singularity with sbatch
+      become: yes
+      become_user: ec2-user
+      ansible.builtin.shell: |
+        chmod 777 install-singularity.sh
+        echo "Submitting singularity job to slurm"
+        sbatch ./install-singularity.sh
