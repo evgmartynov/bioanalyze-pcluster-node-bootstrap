@@ -55,26 +55,26 @@
         dest: /apps/spack/0.19.0
         version: develop
         force: yes
-    - name: Git checkout - 0.18.1
-      become: yes
-      become_user: ec2-user
-      ansible.builtin.git:
-        repo: https://github.com/spack/spack.git
-        dest: /apps/spack/0.18.1
-        version: v0.18.1
-        force: yes
+    #    - name: Git checkout - 0.18.1
+    #      become: yes
+    #      become_user: ec2-user
+    #      ansible.builtin.git:
+    #        repo: https://github.com/spack/spack.git
+    #        dest: /apps/spack/0.18.1
+    #        version: v0.18.1
+    #        force: yes
 
-    - name: Create spack source script - 0.18.1
-      become: yes
-      become_user: ec2-user
-      ansible.builtin.shell: |
-        export SPACK_ROOT=/apps/spack/0.18.1
-        source /apps/spack/0.18.1/share/spack/setup-env.sh 
-        
-        # Install the rolling binary cache
-        # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
-        spack mirror add binary_mirror https://binaries.spack.io/develop
-        spack buildcache keys --install --trust
+    #    - name: Create spack source script - 0.18.1
+    #      become: yes
+    #      become_user: ec2-user
+    #      ansible.builtin.shell: |
+    #        export SPACK_ROOT=/apps/spack/0.18.1
+    #        source /apps/spack/0.18.1/share/spack/setup-env.sh
+    #
+    #        # Install the rolling binary cache
+    #        # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
+    #        spack mirror add binary_mirror https://binaries.spack.io/develop
+    #        spack buildcache keys --install --trust
 
     - name: Create spack source script - 0.19.0
       become: yes
