@@ -17,8 +17,10 @@ spack install \
   --reuse    \
   gromacs@2021 \
   gromacs@2022 \
+  gromacs@2022 +cuda +mpi \
   gromacs@2022 +cuda ~mpi \
   gromacs@2021 +cuda ~mpi \
+  gromacs@2021 +cuda +mpi \
   gromacs@2022 +openmp +blas +lapack \
   gromacs@2021 +openmp +blas +lapack
 
@@ -31,6 +33,8 @@ spack install \
   gromacs@2021 \
   gromacs@2022 \
   gromacs@2021 +cuda ~mpi \
+  gromacs@2021 +cuda +mpi \
   gromacs@2022 +cuda ~mpi \
+  gromacs@2022 +cuda +mpi \
   gromacs@2022 +openmp +blas +lapack \
   gromacs@2021 +openmp +blas +lapack
