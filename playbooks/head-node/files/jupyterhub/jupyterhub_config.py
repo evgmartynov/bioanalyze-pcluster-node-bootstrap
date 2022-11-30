@@ -87,10 +87,12 @@ c.JupyterHub.services = [
 from batchspawner import SlurmSpawner
 from cdsdashboards.hubextension.spawners.variablemixin import VariableMixin, MetaVariableMixin
 
+
 class VariableSlurmSpawner(PClusterSlurmSpawner, VariableMixin, metaclass=MetaVariableMixin):
     pass
 
-#c.JupyterHub.spawner_class = PClusterSlurmSpawner
+
+# c.JupyterHub.spawner_class = PClusterSlurmSpawner
 c.JupyterHub.allow_named_servers = True
 c.JupyterHub.spawner_class = VariableSlurmSpawner
 c.VariableMixin.default_presentation_cmd = ['jhsingle-native-proxy']
@@ -99,7 +101,13 @@ c.CDSDashboardsConfig.builder_class = 'cdsdashboards.builder.processbuilder.Proc
 from cdsdashboards.app import CDS_TEMPLATE_PATHS
 from cdsdashboards.hubextension import cds_extra_handlers
 
-
 c.JupyterHub.template_paths = CDS_TEMPLATE_PATHS
 c.JupyterHub.extra_handlers = cds_extra_handlers
 c.CDSDashboardsConfig.allow_custom_conda_env = True
+
+c.CDSDashboardsConfig.spawn_default_options = False
+
+c.VariableMixin.proxy_force_alive = True
+c.VariableMixin.proxy_last_activity_interval = 300
+c.VariableMixin.proxy_request_timeout = 0
+c.VariableMixin.proxy_ready_timeout = 600
