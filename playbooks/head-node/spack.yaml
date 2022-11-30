@@ -29,6 +29,15 @@
         mode: '0755'
         owner: ec2-user
         group: ec2-user
+    - name: Create spack local mirror
+      become: yes
+      become_user: ec2-user
+      ansible.builtin.file:
+        path: /apps/spack/mirror
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+        group: ec2-user
     - name: Create spack apps directory 0.19
       become: yes
       become_user: ec2-user
