@@ -11,6 +11,15 @@
         mode: '0755'
         owner: ec2-user
         group: ec2-user
+    - name: Copy spack config file
+      become: yes
+      become_user: ec2-user
+      ansible.builtin.copy:
+        src: ./files/spack/config.yaml
+        dest: /home/ec2-user/.spack/config.yaml
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
     - name: Copy spack packages file
       become: yes
       become_user: ec2-user
@@ -67,3 +76,6 @@
         # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
         spack mirror add binary_mirror https://binaries.spack.io/develop
         spack buildcache keys --install --trust
+        
+        # Create a local mirror
+        spack mirror add local_filesystem  file://apps/spack/mirror
