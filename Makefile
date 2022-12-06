@@ -22,9 +22,9 @@ apply-compute:
 	#$(make) install
 	echo "Nothing to do here"
 
+apply: install
 apply:
 	echo "apply"
-	$(make) install
 	ansible-playbook ./playbooks/cloud-labs/singularity/singularity.yaml
 	ansible-playbook ./playbooks/head-node/prepare.yaml
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
