@@ -25,10 +25,10 @@ apply-compute:
 apply: install
 apply:
 	echo "apply"
-	ansible-playbook ./playbooks/head-node/spack.yaml
 	ansible-playbook ./playbooks/head-node/prepare.yaml
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
 	ansible-playbook ./playbooks/head-node/jupyterhub.yaml
+	ansible-playbook ./playbooks/head-node/spack.yaml
 
 ##################################
 # Install software and data
