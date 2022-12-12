@@ -1,0 +1,14 @@
+---
+- name: Include spack
+  ansible.builtin.import_playbook: ../../head-node/spack.yaml
+
+- name: Install Lmod
+  hosts: localhost
+  tasks:
+    - name: Install lmod with sbatch
+      become: yes
+      become_user: ec2-user
+      ansible.builtin.shell: |
+        chmod 777 install-lmod.sh
+        echo "Submitting lmod job to slurm"
+        sbatch ./install-lmod.sh
