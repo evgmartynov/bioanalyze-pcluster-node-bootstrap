@@ -15,7 +15,10 @@ spack install \
   --no-checksum \
   --use-cache \
   --reuse    \
-  r-tidyverse@1.3.2 r-seurat r-shiny
+  r-tidyverse@1.3.2 r-seurat r-shiny \
+  r-biocmanager r-biocinstaller \
+  r-devtools r-biomart r-biobase \
+  r-bigmemory
 
 spack install \
   -j 4 \
@@ -23,4 +26,7 @@ spack install \
   --no-checksum \
   --no-cache \
   --reuse    \
-  r-tidyverse@1.3.2 r-seurat r-shiny
+  r-tidyverse@1.3.2 r-seurat r-shiny \
+  r-biocmanager r-biocinstaller \
+  r-devtools r-biomart r-biobase \
+  r-bigmemory
