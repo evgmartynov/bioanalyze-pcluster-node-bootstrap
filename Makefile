@@ -53,6 +53,10 @@ gromacs:
 	echo "Installing gromacs"
 	ansible-playbook ./playbooks/cloud-labs/gromacs/gromacs.yaml
 
+relion:
+	echo "Installing relion"
+	ansible-playbook ./playbooks/cloud-labs/relion/relion.yaml
+
 ##################################
 # Troubleshooting
 ##################################
