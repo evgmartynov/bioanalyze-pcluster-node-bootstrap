@@ -29,6 +29,14 @@ apply:
 	ansible-playbook ./playbooks/head-node/easybuild.yaml
 	ansible-playbook ./playbooks/head-node/jupyterhub.yaml
 	ansible-playbook ./playbooks/head-node/spack.yaml
+	ansible-playbook ./playbooks/cloud-labs/R/r.yaml
+	ansible-playbook ./playbooks/cloud-labs/bioconductor/bioconductor.yaml
+	ansible-playbook ./playbooks/cloud-labs/py-ml/py-tensorflow.yaml
+	ansible-playbook ./playbooks/cloud-labs/relion/relion.yaml
+	ansible-playbook ./playbooks/cloud-labs/singularity/singularity.yaml
+	ansible-playbook ./playbooks/cloud-labs/lmod/lmod.yaml
+	ansible-playbook ./playbooks/cloud-labs/gromacs/gromacs.yaml
+	ansible-playbook ./playbooks/cloud-labs/alphafold/alphafold.yaml
 
 ##################################
 # Install software and data
