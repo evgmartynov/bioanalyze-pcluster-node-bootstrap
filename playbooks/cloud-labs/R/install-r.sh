@@ -18,7 +18,8 @@ spack install \
   r-tidyverse@1.3.2 r-seurat r-shiny \
   r-biocmanager r-biocinstaller \
   r-devtools r-biomart r-biobase \
-  r-bigmemory
+  r-bigmemory \
+  r-singlecellexperiment
 
 spack install \
   -j 4 \
@@ -29,4 +30,5 @@ spack install \
   r-tidyverse@1.3.2 r-seurat r-shiny \
   r-biocmanager r-biocinstaller \
   r-devtools r-biomart r-biobase \
-  r-bigmemory
+  r-bigmemory \
+  r-singlecellexperiment
