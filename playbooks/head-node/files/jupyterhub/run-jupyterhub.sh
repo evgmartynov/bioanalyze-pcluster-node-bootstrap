@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export AWS_DEFAULT_REGION="us-east-1"
+
 PORT_NUMBER=8001
 lsof -i tcp:${PORT_NUMBER} | awk 'NR!=1 {print $2}' |  xargs -I {} kill {}
 PORT_NUMBER=8000
