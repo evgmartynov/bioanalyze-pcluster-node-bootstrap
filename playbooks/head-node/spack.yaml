@@ -77,6 +77,7 @@
     - name: Git checkout - 0.20.0
       become: yes
       become_user: ec2-user
+      ignore_errors: yes
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
         dest: /apps/spack/0.20.0
@@ -85,6 +86,7 @@
     - name: Git checkout - 0.19.0
       become: yes
       become_user: ec2-user
+      ignore_errors: yes
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
         dest: /apps/spack/0.19.0
