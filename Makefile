@@ -37,6 +37,7 @@ apply:
 	ansible-playbook ./playbooks/cloud-labs/lmod/lmod.yaml
 	ansible-playbook ./playbooks/cloud-labs/gromacs/gromacs.yaml
 	ansible-playbook ./playbooks/cloud-labs/alphafold/alphafold.yaml
+  	ansible-playbook ./playbooks/cloud-labs/py-pymol/py-pymol.yaml
 
 ##################################
 # Install software and data

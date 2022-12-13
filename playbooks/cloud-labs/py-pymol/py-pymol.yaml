@@ -1,0 +1,14 @@
+---
+- name: Include spack
+  ansible.builtin.import_playbook: ../../head-node/spack.yaml
+
+- name: Install PyMol 
+  hosts: localhost
+  tasks:
+    - name: Install pymol with sbatch
+      become: yes
+      become_user: ec2-user
+      ansible.builtin.shell: |
+        chmod 777 install-pymol.sh
+        echo "Submitting pymol job to slurm"
+        sbatch ./install-pymol.sh
