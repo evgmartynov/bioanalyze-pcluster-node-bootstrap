@@ -83,13 +83,13 @@
         mode: '0755'
         owner: ec2-user
         group: ec2-user
-    - name: Git checkout - 0.20.0
+    - name: Git checkout - Latest
       become: yes
       become_user: ec2-user
       ignore_errors: yes
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
-        dest: /apps/software-configs/spack/0.20.0
+        dest: /apps/software-configs/spack/latest
         version: develop
         force: yes
     - name: Git checkout - 0.19.0
@@ -101,27 +101,23 @@
         dest: /apps/software-configs/spack/0.19.0
         version: v0.19.0
         force: yes
+    - name: Git checkout - 0.20.0
+      become: yes
+      become_user: ec2-user
+      ignore_errors: yes
+      ansible.builtin.git:
+        repo: https://github.com/spack/spack.git
+        dest: /apps/software-configs/spack/0.20.0
+        version: develop
+        force: yes
 
     - name: Create spack source script - 0.19.0
       become: yes
       become_user: ec2-user
       ignore_errors: yes
       ansible.builtin.shell: |
-        export SPACK_ROOT=/apps/spack/0.19.0
-        source /apps/spack/0.19.0/share/spack/setup-env.sh 
-        
-        # Install the rolling binary cache
-        # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
-        spack mirror add binary_mirror https://binaries.spack.io/develop
-        spack buildcache keys --install --trust
-
-    - name: Create spack source script - 0.20.0
-      become: yes
-      become_user: ec2-user
-      ignore_errors: yes
-      ansible.builtin.shell: |
-        export SPACK_ROOT=/apps/spack/0.20.0
-        source /apps/spack/0.20.0/share/spack/setup-env.sh 
+        export SPACK_ROOT=/apps/software-configs/spack/latest
+        source ${SPACK_ROOT}/share/spack/setup-env.sh 
         
         # Install the rolling binary cache
         # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
