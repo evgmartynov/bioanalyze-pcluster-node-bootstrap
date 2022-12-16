@@ -1,0 +1,32 @@
+---
+- name: Include spack
+  ansible.builtin.import_playbook: ./easybuild.yaml
+- name: Include spack
+  ansible.builtin.import_playbook: ./jupyterhub.yaml
+
+- name: Reinstall jupyterhub
+  hosts: localhost
+  tasks:
+    - name: Install easybuild modules
+      become: yes
+      become_user: ec2-user
+      ansible.builtin.shell: |
+        source /usr/share/lmod/lmod/init/bash
+
+        export EASYBUILD_PREFIX=/apps/easybuild/4.5.4
+        export MODULEPATH=/apps/easybuild/4.5.4/modules/all
+        export ROBOT=/apps/software-configs/bioanalyze-easyconfigs
+        
+        module purge
+        
+        source activate easybuild4
+
+        export SBATCH_EXCLUSIVE=""
+        export SBATCH_PARTITION="dev"
+
+        cd ${ROBOT}
+        export EASYBUILD_JOB_BACKEND='Slurm'
+        eb --robot=${ROBOT}: --job  \
+          --tmp-logdir $HOME/eb_tmplogs \
+          --force \
+          easybuild/easyconfigs/pangeo-notebook-2022.05.10/jupyterlab-2022.05.10.eb
