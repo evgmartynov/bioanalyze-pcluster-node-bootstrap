@@ -4,7 +4,7 @@
   tasks:
     - name: Create spack packages directory
       become: yes
-      become_user: ec2-user
+      # become_user: ec2-user
       ansible.builtin.file:
         dest: /home/ec2-user/.spack
         state: directory
@@ -13,7 +13,7 @@
         group: ec2-user
     - name: Copy spack config file
       become: yes
-      become_user: ec2-user
+      # become_user: ec2-user
       ansible.builtin.copy:
         src: ./files/spack/config.yaml
         dest: /home/ec2-user/.spack/config.yaml
@@ -22,7 +22,7 @@
         mode: '0644'
     - name: Copy spack mirrors file
       become: yes
-      become_user: ec2-user
+      #      # become_user: ec2-user
       ansible.builtin.copy:
         src: ./files/spack/mirrors.yaml
         dest: /home/ec2-user/.spack/mirrors.yaml
@@ -31,7 +31,7 @@
         mode: '0644'
     - name: Copy spack packages file
       become: yes
-      become_user: ec2-user
+      # become_user: ec2-user
       ansible.builtin.copy:
         src: ./files/spack/spack-packages.yaml
         dest: /home/ec2-user/.spack/packages.yaml
@@ -40,7 +40,7 @@
         mode: '0644'
     - name: Copy spack modules file
       become: yes
-      become_user: ec2-user
+      # become_user: ec2-user
       ansible.builtin.copy:
         src: ./files/spack/modules.yaml
         dest: /home/ec2-user/.spack/modules.yaml
@@ -49,7 +49,7 @@
         mode: '0644'
     - name: Create spack apps directory
       become: yes
-      become_user: ec2-user
+      # become_user: ec2-user
       ansible.builtin.file:
         path: /apps/spack
         state: directory
@@ -58,7 +58,7 @@
         group: ec2-user
     - name: Create spack local mirror
       become: yes
-      become_user: ec2-user
+      # become_user: ec2-user
       ansible.builtin.file:
         path: /apps/software/spack/mirror
         state: directory
@@ -67,7 +67,7 @@
         group: ec2-user
     - name: Create spack apps directory 0.19
       become: yes
-      become_user: ec2-user
+      # become_user: ec2-user
       ansible.builtin.file:
         path: /apps/software-configs/spack/0.19.0
         state: directory
@@ -76,7 +76,7 @@
         group: ec2-user
     - name: Create spack apps directory 0.20
       become: yes
-      become_user: ec2-user
+      # become_user: ec2-user
       ansible.builtin.file:
         path: /apps/software-configs/spack/0.20.0
         state: directory
