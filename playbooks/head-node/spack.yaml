@@ -110,7 +110,14 @@
         dest: /apps/software-configs/spack/0.20.0
         version: develop
         force: yes
-
+    - name: BioAnalyze Spack
+      become: yes
+      become_user: ec2-user
+      ignore_errors: yes
+      ansible.builtin.git:
+        repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-spack
+        dest: /apps/software-configs/bioanalyze-spack
+        force: yes
     - name: Create spack source script - 0.19.0
       become: yes
       become_user: ec2-user
@@ -123,3 +130,6 @@
         # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
         spack mirror add binary_mirror https://binaries.spack.io/develop
         spack buildcache keys --install --trust
+        
+        cd /apps/software-configs/bioanalyze-spack
+        spack repo add .

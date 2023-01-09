@@ -14,7 +14,7 @@ install:
 	# we need the conda role as sudo and as the user!
 	sudo ansible-galaxy install evandam.conda
 	ansible-galaxy install evandam.conda
-
+	sudo yum install -y Lmod
 
 apply-compute:
 	# This is here as a place holder
@@ -37,7 +37,8 @@ apply:
 	ansible-playbook ./playbooks/cloud-labs/lmod/lmod.yaml
 	ansible-playbook ./playbooks/cloud-labs/gromacs/gromacs.yaml
 	ansible-playbook ./playbooks/cloud-labs/alphafold/alphafold.yaml
-  	ansible-playbook ./playbooks/cloud-labs/py-pymol/py-pymol.yaml
+	ansible-playbook ./playbooks/cloud-labs/py-pymol/py-pymol.yaml
+
 
 ##################################
 # Install software and data
