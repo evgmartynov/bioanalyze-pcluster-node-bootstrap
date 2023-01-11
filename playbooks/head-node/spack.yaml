@@ -11,42 +11,6 @@
         mode: '0755'
         owner: ec2-user
         group: ec2-user
-    - name: Copy spack config file
-      become: yes
-      # become_user: ec2-user
-      ansible.builtin.copy:
-        src: ./files/spack/config.yaml
-        dest: /home/ec2-user/.spack/config.yaml
-        owner: ec2-user
-        group: ec2-user
-        mode: '0644'
-    - name: Copy spack mirrors file
-      become: yes
-      #      # become_user: ec2-user
-      ansible.builtin.copy:
-        src: ./files/spack/mirrors.yaml
-        dest: /home/ec2-user/.spack/mirrors.yaml
-        owner: ec2-user
-        group: ec2-user
-        mode: '0644'
-    - name: Copy spack packages file
-      become: yes
-      # become_user: ec2-user
-      ansible.builtin.copy:
-        src: ./files/spack/spack-packages.yaml
-        dest: /home/ec2-user/.spack/packages.yaml
-        owner: ec2-user
-        group: ec2-user
-        mode: '0644'
-    - name: Copy spack modules file
-      become: yes
-      # become_user: ec2-user
-      ansible.builtin.copy:
-        src: ./files/spack/modules.yaml
-        dest: /home/ec2-user/.spack/modules.yaml
-        owner: ec2-user
-        group: ec2-user
-        mode: '0644'
     - name: Create spack apps directory
       become: yes
       # become_user: ec2-user
@@ -133,3 +97,39 @@
         
         cd /apps/software-configs/bioanalyze-spack
         spack repo add .
+    - name: Copy spack config file
+      become: yes
+      # become_user: ec2-user
+      ansible.builtin.copy:
+        src: ./files/spack/config.yaml
+        dest: /apps/software-configs/spack/latest/etc/spack/config.yaml
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
+    - name: Copy spack mirrors file
+      become: yes
+      #      # become_user: ec2-user
+      ansible.builtin.copy:
+        src: ./files/spack/mirrors.yaml
+        dest: /apps/software-configs/spack/latest/etc/spack/mirrors.yaml
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
+    - name: Copy spack packages file
+      become: yes
+      # become_user: ec2-user
+      ansible.builtin.copy:
+        src: ./files/spack/spack-packages.yaml
+        dest: /apps/software-configs/spack/latest/etc/spack/packages.yaml
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
+    - name: Copy spack modules file
+      become: yes
+      # become_user: ec2-user
+      ansible.builtin.copy:
+        src: ./files/spack/modules.yaml
+        dest: /apps/software-configs/spack/latest/etc/spack/modules.yaml
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
