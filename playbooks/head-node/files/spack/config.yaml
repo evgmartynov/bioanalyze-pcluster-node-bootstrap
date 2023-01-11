@@ -32,6 +32,7 @@ config:
     - /apps/software/spack/stage
     - $user_cache_path/stage
     - $tempdir/$user/spack-stage
+    - ~/.spack/stage
 
   source_cache: $spack/var/spack/cache
 
