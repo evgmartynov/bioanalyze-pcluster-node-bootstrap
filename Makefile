@@ -14,7 +14,6 @@ install:
 	# we need the conda role as sudo and as the user!
 	sudo ansible-galaxy install evandam.conda
 	ansible-galaxy install evandam.conda
-	sudo yum install -y Lmod
 
 apply-compute:
 	# This is here as a place holder
