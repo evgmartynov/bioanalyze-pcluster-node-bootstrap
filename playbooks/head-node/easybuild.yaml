@@ -5,6 +5,9 @@
   hosts: localhost
   roles:
     - role: evandam.conda
+  vars:
+    # the system user is either ubuntu or alinux2
+    system_user: "ubuntu"
   tasks:
     - name: Copy condarc
       become: yes

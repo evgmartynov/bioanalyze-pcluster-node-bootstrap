@@ -3,6 +3,9 @@
   ansible.builtin.import_playbook: ../system_user.yaml
 - name: Configure Jupyterhub
   hosts: localhost
+  vars:
+    # the system user is either ubuntu or alinux2
+    system_user: "ubuntu"
   tasks:
     - name: Create jupyterhub config and scripts directory
       become: yes

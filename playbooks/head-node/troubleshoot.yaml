@@ -3,6 +3,9 @@
   ansible.builtin.import_playbook: ../system_user.yaml
 - name: Force rerun bootstrap scripts
   hosts: localhost
+  vars:
+    # the system user is either ubuntu or alinux2
+    system_user: "ubuntu"
   tasks:
     - name: Rerun bootstrap scripts
       become: yes

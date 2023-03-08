@@ -4,6 +4,9 @@
   ansible.builtin.import_playbook: ../system_user.yaml
 - name: Prepare directories
   hosts: localhost
+  vars:
+    # the system user is either ubuntu or alinux2
+    system_user: "ubuntu"
   tasks:
     - name: Create easybuild apps directory
       become: yes
