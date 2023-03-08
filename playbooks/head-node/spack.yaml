@@ -18,7 +18,7 @@
       - {
         repo: "https://github.com/spack/spack.git",
         dest: "/apps/software-configs/spack/0.20.0",
-        verion: "develop",
+        version: "develop",
       }
       - {
         repo: "https://github.com/spack/spack.git",
