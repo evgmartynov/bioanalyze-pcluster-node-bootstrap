@@ -8,34 +8,34 @@
   tasks:
     - name: Copy condarc
       become: yes
-      become_user: {{system_user}}
+      become_user: "{{system_user}}"
       ansible.builtin.copy:
         src: ./files/.condarc
-        dest: /home/{{system_user}}/.condarc
-        owner: {{system_user}}
-        group: {{system_user}}
+        dest: /home/"{{system_user}}"/.condarc
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
         mode: '0644'
     - name: Copy bashrc
       become: yes
-      become_user: {{system_user}}
+      become_user: "{{system_user}}"
       ansible.builtin.copy:
         src: ./files/.bashrc
-        dest: /home/{{system_user}}/.bashrc
-        owner: {{system_user}}
-        group: {{system_user}}
+        dest: /home/"{{system_user}}"/.bashrc
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
         mode: '0644'
     - name: Copy submit-interactive
       become: yes
-      become_user: {{system_user}}
+      become_user: "{{system_user}}"
       ansible.builtin.copy:
         src: ./files/submit-interactive.sh
-        dest: /home/{{system_user}}/submit-interactive.sh
-        owner: {{system_user}}
-        group: {{system_user}}
+        dest: /home/"{{system_user}}"/submit-interactive.sh
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
         mode: '0777'
     - name: Easybuild conda env
       become: yes
-      become_user: {{system_user}}
+      become_user: "{{system_user}}"
       conda:
         name:
           - python=3.7
@@ -48,26 +48,26 @@
         path: /apps/easybuild/4.5.4
         state: directory
         mode: '0755'
-        owner: {{system_user}}
-        group: {{system_user}}
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
     - name: Create easybuild modules directory
       become: yes
       ansible.builtin.file:
         path: /apps/easybuild/4.5.4/modules/all
         state: directory
         mode: '0755'
-        owner: {{system_user}}
-        group: {{system_user}}
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
     - name: Git checkout
       become: yes
-      become_user: {{system_user}}
+      become_user: "{{system_user}}"
       ansible.builtin.git:
         repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-easyconfigs
         dest: /apps/software-configs/bioanalyze-easyconfigs
         force: yes
     - name: Install easybuild modules
       become: yes
-      become_user: {{system_user}}
+      become_user: "{{system_user}}"
       ansible.builtin.shell: |
         source /usr/share/lmod/lmod/init/bash
 

@@ -11,37 +11,37 @@
         path: /apps/easybuild/4.5.4
         state: directory
         mode: '0755'
-        owner: {{system_user}}
-        group: {{system_user}}
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
     - name: Create easybuild modules directory
       become: yes
       ansible.builtin.file:
         path: /apps/easybuild/4.5.4/modules/all
         state: directory
         mode: '0755'
-        owner: {{system_user}}
-        group: {{system_user}}
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
     - name: Create software-configs
       become: yes
       ansible.builtin.file:
         path: /apps/software-configs
         state: directory
         mode: '0755'
-        owner: {{system_user}}
-        group: {{system_user}}
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
     - name: Create jupyterhub config
       become: yes
       ansible.builtin.file:
         path: /apps/software-configs/jupyterhub
         state: directory
         mode: '0755'
-        owner: {{system_user}}
-        group: {{system_user}}
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
     - name: Scratch reference
       become: yes
       ansible.builtin.file:
         path: /scratch/reference
         state: directory
         mode: '0755'
-        owner: {{system_user}}
-        group: {{system_user}}
+        owner: "{{system_user}}"
+        group: "{{system_user}}"

@@ -10,8 +10,8 @@
         path: /apps/software-configs/jupyterhub
         state: directory
         mode: '0755'
-        owner: {{system_user}}
-        group: {{system_user}}
+        owner: "{{system_user}}"
+        group: "{{system_user}}"
     - name: Copy Dask Gateway Service
       become: yes
       ansible.builtin.copy:

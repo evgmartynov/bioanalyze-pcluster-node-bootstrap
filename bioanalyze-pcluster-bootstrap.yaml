@@ -1,11 +1,9 @@
 ---
-- name: Include system users
-  ansible.builtin.import_playbook: ./playbooks/system_user.yaml
 - name: Install BioAnalyze Bootstrap
   hosts: localhost
   tasks:
     - name: Git checkout
       ansible.builtin.git:
         repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-pcluster-node-bootstrap
-        dest: /home/{{system_user}}/bioanalyze-pcluster-node-bootstrap
+        dest: bioanalyze-pcluster-node-bootstrap
         force: yes
