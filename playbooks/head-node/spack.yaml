@@ -86,9 +86,9 @@
       ansible.builtin.copy:
         src: "{{src}}"
         dest: "{{dest}}"
+        mode: "{{mode}}"
         owner: "ec2-user"
         group: "ec2-user"
-        mode: "{{mode}}"
       loop: "{{spack_configs}}"
     - name: Ubuntu - Spack config files
       when: ansible_os_family == "Debian"
@@ -97,7 +97,7 @@
       ansible.builtin.copy:
         src: "{{src}}"
         dest: "{{dest}}"
+        mode: "{{mode}}"
         owner: "ubuntu"
         group: "ubuntu"
-        mode: "{{mode}}"
       loop: "{{spack_configs}}"
