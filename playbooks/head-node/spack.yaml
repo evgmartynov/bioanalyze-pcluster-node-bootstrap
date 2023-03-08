@@ -63,9 +63,9 @@
       become_user: "ec2-user"
       ignore_errors: yes
       ansible.builtin.git:
-        repo: "{{repo}}"
-        dest: "{{dest}}"
-        version: "{{version}}"
+        repo: "{{item.repo}}"
+        dest: "{{item.dest}}"
+        version: "{{item.version}}"
         force: yes
       loop: "{{git_repos}}"
     - name: Ubuntu - Git checkout spack
@@ -74,9 +74,9 @@
       become_user: "ubuntu"
       ignore_errors: yes
       ansible.builtin.git:
-        repo: "{{repo}}"
-        dest: "{{dest}}"
-        version: "{{version}}"
+        repo: "{{item.repo}}"
+        dest: "{{item.dest}}"
+        version: "{{item.version}}"
         force: yes
       loop: "{{git_repos}}"
     - name: Alinux2 - Spack config files
@@ -84,9 +84,9 @@
       become: yes
       become_user: "ec2-user"
       ansible.builtin.copy:
-        src: "{{src}}"
-        dest: "{{dest}}"
-        mode: "{{mode}}"
+        src: "{{item.src}}"
+        dest: "{{item.dest}}"
+        mode: "{{item.mode}}"
         owner: "ec2-user"
         group: "ec2-user"
       loop: "{{spack_configs}}"
@@ -95,9 +95,9 @@
       become: yes
       become_user: "ubuntu"
       ansible.builtin.copy:
-        src: "{{src}}"
-        dest: "{{dest}}"
-        mode: "{{mode}}"
+        src: "{{item.src}}"
+        dest: "{{item.dest}}"
+        mode: "{{item.mode}}"
         owner: "ubuntu"
         group: "ubuntu"
       loop: "{{spack_configs}}"
