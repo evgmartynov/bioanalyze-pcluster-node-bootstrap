@@ -5,8 +5,6 @@
 - name: Prepare directories
   hosts: localhost
   vars:
-    # the system user is either ubuntu or alinux2
-    system_user: "ubuntu"
     directories:
       - { path: "/apps/software-configs", type: "directory" }
       - { path: "/apps/easybuild/4.5.4/modules/all", type: "directory" }
@@ -23,11 +21,6 @@
         owner: "ec2-user"
         group: "ec2-user"
       loop: "{{directories}}"
-      #        - { path: "/apps/software-configs", type: "directory" }
-      #        - { path: "/apps/easybuild/4.5.4/modules/all", type: "directory" }
-      #        - { path: "/apps/easybuild/4.5.4", type: "directory" }
-      #        - { path: "/apps/software-configs/jupyterhub", type: "directory" }
-      #        - { path: "/scratch/reference", type: "directory" }
       when: ansible_os_family == "RedHat"
     - name: Ubuntu - Software and EasyBuild dirs
       become: yes
@@ -38,10 +31,4 @@
         owner: "ubuntu"
         group: "ubuntu"
       loop: "{{directories}}"
-      #      loop:
-      #        - { path: "/apps/software-configs", type: "directory" }
-      #        - { path: "/apps/easybuild/4.5.4/modules/all", type: "directory" }
-      #        - { path: "/apps/easybuild/4.5.4", type: "directory" }
-      #        - { path: "/apps/software-configs/jupyterhub", type: "directory" }
-      #        - { path: "/scratch/reference", type: "directory" }
       when: ansible_os_family == "Debian"

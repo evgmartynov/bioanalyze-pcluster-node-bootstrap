@@ -4,93 +4,132 @@
   roles:
     - role: evandam.conda
   vars:
-    # the system user is either ubuntu or alinux2
-    system_user: "ubuntu"
+    easybuild_submit: |
+      source /usr/share/lmod/lmod/init/bash
+      
+      export EASYBUILD_PREFIX=/apps/easybuild/4.5.4
+      export MODULEPATH=/apps/easybuild/4.5.4/modules/all
+      export ROBOT=/apps/software-configs/bioanalyze-easyconfigs
+      
+      module purge
+      
+      source activate easybuild4
+      pip install "easybuild>=4,<5"
+      
+      export SBATCH_EXCLUSIVE=""
+      export SBATCH_PARTITION="dev"
+      
+      cd ${ROBOT}
+      export EASYBUILD_JOB_BACKEND='Slurm'
+      eb --robot=${ROBOT}: --job  \
+        --tmp-logdir $HOME/eb_tmplogs \
+        easybuild/easyconfigs/miniconda3-4.12.0.eb \
+        easybuild/easyconfigs/r-datascience-4.eb \
+        easybuild/easyconfigs/pcluster-helpers-0.0.1.eb \
+        easybuild/easyconfigs/nextflow-22.04.0.eb \
+        easybuild/easyconfigs/pangeo-notebook-2022.05.10/jupyterlab-2022.05.10.eb \
+        easybuild/easyconfigs/easybuild-4.5.4.eb 
+
   tasks:
-    - name: Copy condarc
+    - name: Alinux2 - Copy condarc
       become: yes
-      become_user: "{{system_user}}"
       ansible.builtin.copy:
         src: ./files/.condarc
-        dest: "/home/{{system_user}}/.condarc"
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
+        dest: "/home/ec2-user/.condarc"
+        owner: "ec2-user"
+        group: "ec2-user"
         mode: '0644'
-    - name: Copy bashrc
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Copy condarc
       become: yes
-      become_user: "{{system_user}}"
+      ansible.builtin.copy:
+        src: ./files/.condarc
+        dest: "/home/ubuntu/.condarc"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: '0644'
+      when: ansible_os_family == "Debian"
+    - name: Alinux2 - Copy bashrc
+      become: yes
       ansible.builtin.copy:
         src: ./files/.bashrc
-        dest: "/home/{{system_user}}/.bashrc"
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
+        dest: "/home/ec2-user/.bashrc"
+        owner: "ec2-user"
+        group: "ec2-user"
         mode: '0644'
-    - name: Copy submit-interactive
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Copy bashrc
       become: yes
-      become_user: "{{system_user}}"
+      ansible.builtin.copy:
+        src: ./files/.bashrc
+        dest: "/home/ubuntu/.bashrc"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: '0644'
+      when: ansible_os_family == "Debian"
+    - name: Alinux2 - Copy submit-interactive
+      become: yes
+      become_user: "ec2-user"
       ansible.builtin.copy:
         src: ./files/submit-interactive.sh
-        dest: "/home/{{system_user}}/submit-interactive.sh"
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
+        dest: "/home/ec2-user/submit-interactive.sh"
+        owner: "ec2-user"
+        group: "ec2-user"
         mode: '0777'
-    - name: Easybuild conda env
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Copy submit-interactive
       become: yes
-      become_user: "{{system_user}}"
+      become_user: "ubuntu"
+      ansible.builtin.copy:
+        src: ./files/submit-interactive.sh
+        dest: "/home/ubuntu/submit-interactive.sh"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: '0777'
+      when: ansible_os_family == "Debian"
+    - name: Alinux2 - Easybuild conda env
+      become: yes
+      become_user: "ec2-user"
       conda:
         name:
           - python=3.7
           - pip
         environment: easybuild4
         state: present
-    - name: Create easybuild apps directory
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Easybuild conda env
       become: yes
-      ansible.builtin.file:
-        path: /apps/easybuild/4.5.4
-        state: directory
-        mode: '0755'
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-    - name: Create easybuild modules directory
+      become_user: "ubuntu"
+      conda:
+        name:
+          - python=3.7
+          - pip
+        environment: easybuild4
+        state: present
+      when: ansible_os_family == "Ubuntu"
+    - name: Alinux2 - Git checkout
       become: yes
-      ansible.builtin.file:
-        path: /apps/easybuild/4.5.4/modules/all
-        state: directory
-        mode: '0755'
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-    - name: Git checkout
-      become: yes
-      become_user: "{{system_user}}"
+      become_user: "ec2-user"
       ansible.builtin.git:
         repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-easyconfigs
         dest: /apps/software-configs/bioanalyze-easyconfigs
         force: yes
-    - name: Install easybuild modules
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Git checkout
       become: yes
-      become_user: "{{system_user}}"
-      ansible.builtin.shell: |
-        source /usr/share/lmod/lmod/init/bash
-
-        export EASYBUILD_PREFIX=/apps/easybuild/4.5.4
-        export MODULEPATH=/apps/easybuild/4.5.4/modules/all
-        export ROBOT=/apps/software-configs/bioanalyze-easyconfigs
-        
-        module purge
-        
-        source activate easybuild4
-        pip install "easybuild>=4,<5"
-
-        export SBATCH_EXCLUSIVE=""
-        export SBATCH_PARTITION="dev"
-
-        cd ${ROBOT}
-        export EASYBUILD_JOB_BACKEND='Slurm'
-        eb --robot=${ROBOT}: --job  \
-          --tmp-logdir $HOME/eb_tmplogs \
-          easybuild/easyconfigs/miniconda3-4.12.0.eb \
-          easybuild/easyconfigs/r-datascience-4.eb \
-          easybuild/easyconfigs/pcluster-helpers-0.0.1.eb \
-          easybuild/easyconfigs/nextflow-22.04.0.eb \
-          easybuild/easyconfigs/pangeo-notebook-2022.05.10/jupyterlab-2022.05.10.eb \
-          easybuild/easyconfigs/easybuild-4.5.4.eb 
+      become_user: "ubuntu"
+      ansible.builtin.git:
+        repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-easyconfigs
+        dest: /apps/software-configs/bioanalyze-easyconfigs
+        force: yes
+      when: ansible_os_family == "Debian"
+    - name: Alinux2 - Install easybuild modules
+      become: yes
+      become_user: "ec2-user"
+      ansible.builtin.shell: "{{easybuild_submit}}"
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Install easybuild modules
+      become: yes
+      become_user: "ubuntu"
+      ansible.builtin.shell: "{{easybuild_submit}}"
+      when: ansible_os_family == "Ubuntu"
