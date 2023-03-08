@@ -1,6 +1,6 @@
 ---
 - name: Include system users
-  ansible.builtin.import_playbook: ../../system_user.yaml
+  ansible.builtin.import_playbook: ../system_user.yaml
 - name: Restart services
   hosts: localhost
   tasks:

@@ -1,6 +1,6 @@
 ---
 - name: Include system users
-  ansible.builtin.import_playbook: ../../system_user.yaml
+  ansible.builtin.import_playbook: ../system_user.yaml
 - name: Force rerun bootstrap scripts
   hosts: localhost
   tasks:
