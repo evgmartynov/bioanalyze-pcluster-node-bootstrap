@@ -14,7 +14,7 @@
       become_user: "{{system_user}}"
       ansible.builtin.copy:
         src: ./files/.condarc
-        dest: /home/"{{system_user}}"/.condarc
+        dest: "/home/{{system_user}}/.condarc"
         owner: "{{system_user}}"
         group: "{{system_user}}"
         mode: '0644'
@@ -23,7 +23,7 @@
       become_user: "{{system_user}}"
       ansible.builtin.copy:
         src: ./files/.bashrc
-        dest: /home/"{{system_user}}"/.bashrc
+        dest: "/home/{{system_user}}/.bashrc"
         owner: "{{system_user}}"
         group: "{{system_user}}"
         mode: '0644'
@@ -32,7 +32,7 @@
       become_user: "{{system_user}}"
       ansible.builtin.copy:
         src: ./files/submit-interactive.sh
-        dest: /home/"{{system_user}}"/submit-interactive.sh
+        dest: "/home/{{system_user}}/submit-interactive.sh"
         owner: "{{system_user}}"
         group: "{{system_user}}"
         mode: '0777'
