@@ -5,51 +5,65 @@
   hosts: localhost
   vars:
     # the system user is either ubuntu or alinux2
-    system_user: "ubuntu"
+    system_configs:
+      - {
+        src: "./files/jupyterhub/99-parallellcluster-secure-path",
+        dest: "/etc/sudoers.d/99-parallellcluster-secure-path"
+      }
+      - {
+        src: "./files/jupyterhub/daskgateway.service",
+        dest: "/usr/lib/systemd/system/daskgateway.service",
+      }
+      - {
+        src: "./files/jupyterhub/jupyterhub.service",
+        dest: "/usr/lib/systemd/system/jupyterhub.service",
+      }
+    app_configs:
+      - {
+        src: "./files/jupyterhub/jupyterhub_config.py",
+        dest: "/apps/software-configs/jupyterhub/jupyterhub_config.py"
+      }
+      - {
+        src: "./files/jupyterhub/dask_gateway_config.py",
+        dest: "/apps/software-configs/jupyterhub/dask_gateway_config.py"
+      }
+      - {
+        src: "./files/jupyterhub/run-jupyterhub.sh",
+        dest: "/apps/software-configs/jupyterhub/run-jupyterhub.sh"
+      }
+      - {
+        src: "./files/jupyterhub/run-daskgateway.sh",
+        dest: "/apps/software-configs/jupyterhub/run-daskgateway.sh",
+      }
   tasks:
-    - name: Create jupyterhub config and scripts directory
-      become: yes
-      ansible.builtin.file:
-        path: /apps/software-configs/jupyterhub
-        state: directory
-        mode: '0755'
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-    - name: Copy Dask Gateway Service
+    - name: System Jupyter and Dask Gateway Config Files
       become: yes
       ansible.builtin.copy:
-        src: ./files/jupyterhub/daskgateway.service
-        dest: /usr/lib/systemd/system/daskgateway.service
-    - name: Copy Jupyterhub Service
+        src: "{{item.src}}"
+        dest: "{{item.dest}}"
+      loop: "{{system_configs}}"
+    - name: Alinux2 - Jupyter and Dask Gateway Config Files
       become: yes
+      become_user: "ec2-user"
       ansible.builtin.copy:
-        src: ./files/jupyterhub/jupyterhub.service
-        dest: /usr/lib/systemd/system/jupyterhub.service
-    - name: Copy Jupyterhub Config
+        src: "{{item.src}}"
+        dest: "{{item.dest}}"
+        owner: "ec2-user"
+        group: "ec2-user"
+        mode: '0777'
+      loop: "{{app_configs}}"
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Jupyter and Dask Gateway Config Files
       become: yes
+      become_user: "ubuntu"
       ansible.builtin.copy:
-        src: ./files/jupyterhub/jupyterhub_config.py
-        dest: /apps/software-configs/jupyterhub/jupyterhub_config.py
-    - name: Copy Dask Gateway Config
-      become: yes
-      ansible.builtin.copy:
-        src: ./files/jupyterhub/dask_gateway_config.py
-        dest: /apps/software-configs/jupyterhub/dask_gateway_config.py
-    - name: Copy Jupyterhub Service Script
-      become: yes
-      ansible.builtin.copy:
-        src: ./files/jupyterhub/run-jupyterhub.sh
-        dest: /apps/software-configs/jupyterhub/run-jupyterhub.sh
-    - name: Copy Dask Gateway Service Script
-      become: yes
-      ansible.builtin.copy:
-        src: ./files/jupyterhub/run-daskgateway.sh
-        dest: /apps/software-configs/jupyterhub/run-daskgateway.sh
-    - name: Copy Secure Path
-      become: yes
-      ansible.builtin.copy:
-        src: ./files/jupyterhub/99-parallellcluster-secure-path
-        dest: /etc/sudoers.d/99-parallellcluster-secure-path
+        src: "{{item.src}}"
+        dest: "{{item.dest}}"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: '0777'
+      loop: "{{app_configs}}"
+      when: ansible_os_family == "Debian"
     - name: Start Jupyterhub service
       become: yes
       ansible.builtin.shell: |
