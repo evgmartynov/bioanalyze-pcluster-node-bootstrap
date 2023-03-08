@@ -1,0 +1,6 @@
+---
+- name: Set users
+  hosts: localhost
+  vars:
+    # the system user is either ubuntu or alinux2
+    system_user: "ubuntu"

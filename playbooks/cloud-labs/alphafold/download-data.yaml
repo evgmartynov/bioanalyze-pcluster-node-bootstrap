@@ -1,6 +1,8 @@
 ---
 - name: Include alphafold
   ansible.builtin.import_playbook: ./alphafold.yaml
+- name: Include system users
+  ansible.builtin.import_playbook: ../../system_user.yaml
 - name: Download alphafold
   hosts: localhost
   tasks:
@@ -10,86 +12,86 @@
         path: /scratch/reference/alphafold
         state: directory
         mode: '0755'
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
     - name: chmod
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         chmod 777 *sh
     - name: download alphafold params
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_alphafold_params.sh
       args:
         creates: /scratch/reference/alphafold/params
     - name: download alphafold bfd
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_bfd.sh
       args:
         creates: /scratch/reference/alphafold/bfd
     - name: download alphafold mgnify
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_mgnify.sh
       args:
         creates: /scratch/reference/alphafold/mgnify
     - name: download alphafold pdb70
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_pdb70.sh
       args:
         creates: /scratch/reference/alphafold/pdb70
     - name: download alphafold pdb_mmcif
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_pdb_mmcif.sh
       args:
         creates: /scratch/reference/alphafold/pdb_mmcif
     - name: download alphafold pdb_seqres
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_pdb_seqres.sh
       args:
         creates: /scratch/reference/alphafold/pdb_seqres
     - name: download alphafold pdb_seqres
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_pdb_seqres.sh
       args:
         creates: /scratch/reference/alphafold/pdb_seqres
     - name: download alphafold small_bfd
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_small_bfd.sh
       args:
         creates: /scratch/reference/alphafold/small_bfd
     - name: download alphafold uniclust30
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_uniclust30.sh
       args:
         creates: /scratch/reference/alphafold/uniclust30
     - name: download alphafold uniprot
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_uniprot.sh
       args:
         creates: /scratch/reference/alphafold/uniprot
     - name: download alphafold uniref90
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ansible.builtin.shell: |
         sbatch --exclusive --time 1-00:00:00 ./download_uniref90.sh
       args:

@@ -19,7 +19,22 @@
 # Usage: bash download_pdb_mmcif.sh /path/to/download/directory
 set -e
 
-sudo yum install -y aria2
+export LOCAL_USER="ubuntu"
+if ! command -v apt-get &> /dev/null
+then
+        echo "On OS Alinux2"
+        export LOCAL_USER="ec2-user"
+        sudo yum install -y aria2
+fi
+if  command -v apt-get &> /dev/null
+then
+        sudo apt-get install -y aria2
+fi
+
+if ! command -v aria2c &> /dev/null ; then
+    echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."
+    exit 1
+fi
 
 DOWNLOAD_DIR="/scratch/reference/alphafold"
 

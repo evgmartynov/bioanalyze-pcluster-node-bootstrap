@@ -20,7 +20,17 @@
 # Usage: bash download_uniprot.sh /path/to/download/directory
 set -e
 
-sudo yum install -y aria2
+export local_user="ubuntu"
+if ! command -v apt-get &> /dev/null
+then
+        echo "on os alinux2"
+        export local_user="ec2-user"
+        sudo yum install -y aria2
+fi
+if  command -v apt-get &> /dev/null
+then
+        sudo apt-get install -y aria2
+fi
 
 DOWNLOAD_DIR="/scratch/reference/alphafold"
 ROOT_DIR="${DOWNLOAD_DIR}/uniprot"
