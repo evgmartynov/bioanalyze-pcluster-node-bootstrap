@@ -112,5 +112,5 @@
         owner: "ubuntu"
         group: "ubuntu"
         mode: "{{mode}}"
-      when: ansible_os_family == "Ubuntu"
+      when: ansible_os_family == "Debian"
       loop: "{{spack_configs}}"
