@@ -1,6 +1,5 @@
 ---
 - name: Bootstrap easybuild
-  ansible.builtin.import_playbook: ../system_user.yaml
   hosts: localhost
   roles:
     - role: evandam.conda
