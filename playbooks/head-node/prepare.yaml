@@ -6,6 +6,9 @@
   hosts: localhost
   vars:
     directories:
+      - { path: "/apps/software-configs/spack/latest", type: "directory" }
+      - { path: "/apps/software-configs/spack/0.20.0", type: "directory" }
+      - { path: "/apps/software-configs/spack/0.19.0", type: "directory" }
       - { path: "/apps/software-configs", type: "directory" }
       - { path: "/apps/easybuild/4.5.4/modules/all", type: "directory" }
       - { path: "/apps/easybuild/4.5.4", type: "directory" }

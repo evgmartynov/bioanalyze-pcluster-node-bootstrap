@@ -1,140 +1,116 @@
 ---
-- name: Include system users
-  ansible.builtin.import_playbook: ../system_user.yaml
 - name: Install Spack
   hosts: localhost
   vars:
-    # the system user is either ubuntu or alinux2
-    system_user: "ubuntu"
+    spack_post_init: |
+      export SPACK_ROOT=/apps/software-configs/spack/latest
+      source ${SPACK_ROOT}/share/spack/setup-env.sh 
+      
+      # Install the rolling binary cache
+      # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
+      spack mirror add binary_mirror https://binaries.spack.io/develop
+      spack buildcache keys --install --trust
+      
+      cd /apps/software-configs/bioanalyze-spack
+      spack repo add .
+
+    git_repos:
+      - {
+        repo: "https://github.com/spack/spack.git",
+        dest: "/apps/software-configs/spack/0.20.0",
+        verion: "develop",
+        force: "yes",
+      }
+      - {
+        repo: "https://github.com/spack/spack.git",
+        dest: "/apps/software-configs/spack/latest",
+        version: "develop",
+      }
+      - {
+        repo: "https://github.com/spack/spack.git",
+        dest: "/apps/software-configs/spack/0.19.0",
+        version: "v.0.19.0",
+      }
+      - {
+        repo: "https://github.com/dabble-of-devops-bioanalyze/bioanalyze-spack",
+        dest: "/apps/software-configs/bioanalyze-spack",
+        version: "main",
+      }
+    spack_configs:
+      - {
+        src: "./files/spack/config.yaml",
+        dest: "/apps/software-configs/spack/latest/etc/spack/config.yaml",
+        mode: '0644'
+      }
+      - {
+        src: "./files/spack/mirrors.yaml",
+        dest: "/apps/software-configs/spack/latest/etc/spack/mirrors.yaml",
+        mode: '0644'
+      }
+      - {
+        src: "./files/spack/spack-packages.yaml",
+        dest: "/apps/software-configs/spack/latest/etc/spack/packages.yaml",
+        mode: '0644'
+      }
+      - {
+        src: "./files/spack/modules.yaml",
+        dest: "/apps/software-configs/spack/latest/etc/spack/modules.yaml",
+        mode: '0644'
+      }
   tasks:
-    - name: Create spack packages directory
+    - name: Alinux2 - Git checkout spack
       become: yes
-      # become_user: "{{system_user}}"
-      ansible.builtin.file:
-        dest: /home/"{{system_user}}"/.spack
-        state: directory
-        mode: '0755'
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-    - name: Create spack apps directory
-      become: yes
-      # become_user: "{{system_user}}"
-      ansible.builtin.file:
-        path: /apps/spack
-        state: directory
-        mode: '0755'
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-    - name: Create spack local mirror
-      become: yes
-      # become_user: "{{system_user}}"
-      ansible.builtin.file:
-        path: /apps/software/spack/mirror
-        state: directory
-        mode: '0755'
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-    - name: Create spack apps directory 0.19
-      become: yes
-      # become_user: "{{system_user}}"
-      ansible.builtin.file:
-        path: /apps/software-configs/spack/0.19.0
-        state: directory
-        mode: '0755'
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-    - name: Create spack apps directory 0.20
-      become: yes
-      # become_user: "{{system_user}}"
-      ansible.builtin.file:
-        path: /apps/software-configs/spack/0.20.0
-        state: directory
-        mode: '0755'
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-    - name: Git checkout - Latest
-      become: yes
-      become_user: "{{system_user}}"
+      become_user: "ec2-user"
       ignore_errors: yes
       ansible.builtin.git:
-        repo: https://github.com/spack/spack.git
-        dest: /apps/software-configs/spack/latest
-        version: develop
+        repo: "{{repo}}"
+        dest: "{{dest}}"
+        version: "{{version}}"
         force: yes
-    - name: Git checkout - 0.19.0
+      loop: "{{git_repos}}"
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Git checkout spack
       become: yes
-      become_user: "{{system_user}}"
+      become_user: "ubuntu"
       ignore_errors: yes
       ansible.builtin.git:
-        repo: https://github.com/spack/spack.git
-        dest: /apps/software-configs/spack/0.19.0
-        version: v0.19.0
+        repo: "{{repo}}"
+        dest: "{{dest}}"
+        version: "{{version}}"
         force: yes
-    - name: Git checkout - 0.20.0
+      loop: "{{git_repos}}"
+      when: ansible_os_family == "Debian"
+    - name: Alinux2 - Create spack source script - 0.19.0
       become: yes
-      become_user: "{{system_user}}"
+      become_user: "ec2-user"
       ignore_errors: yes
-      ansible.builtin.git:
-        repo: https://github.com/spack/spack.git
-        dest: /apps/software-configs/spack/0.20.0
-        version: develop
-        force: yes
-    - name: BioAnalyze Spack
+      ansible.builtin.shell: "{{spack_post_init}}"
+      when: ansible_os_family == "RedHat"
+    - name: Ubuntu - Create spack source script - 0.19.0
       become: yes
-      become_user: "{{system_user}}"
+      become_user: "ubuntu"
       ignore_errors: yes
-      ansible.builtin.git:
-        repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-spack
-        dest: /apps/software-configs/bioanalyze-spack
-        force: yes
-    - name: Create spack source script - 0.19.0
+      ansible.builtin.shell: "{{spack_post_init}}"
+      when: ansible_os_family == "Debian"
+    - name: Alinux2 - Spack config files
       become: yes
-      become_user: "{{system_user}}"
-      ignore_errors: yes
-      ansible.builtin.shell: |
-        export SPACK_ROOT=/apps/software-configs/spack/latest
-        source ${SPACK_ROOT}/share/spack/setup-env.sh 
-        
-        # Install the rolling binary cache
-        # https://aws.amazon.com/blogs/hpc/introducing-the-spack-rolling-binary-cache/
-        spack mirror add binary_mirror https://binaries.spack.io/develop
-        spack buildcache keys --install --trust
-        
-        cd /apps/software-configs/bioanalyze-spack
-        spack repo add .
-    - name: Copy spack config file
-      become: yes
-      # become_user: "{{system_user}}"
+      become_user: "ec2-user"
       ansible.builtin.copy:
-        src: ./files/spack/config.yaml
-        dest: /apps/software-configs/spack/latest/etc/spack/config.yaml
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-        mode: '0644'
-    - name: Copy spack mirrors file
+        src: "{{src}}"
+        dest: "{{dest}}"
+        owner: "ec2-user"
+        group: "ec2-user"
+        mode: "{{mode}}"
+      when: ansible_os_family == "RedHat"
+      loop: "{{spack_configs}}"
+    - name: Ubuntu - Spack config files
       become: yes
-      #      # become_user: "{{system_user}}"
+      become_user: "ubuntu"
       ansible.builtin.copy:
-        src: ./files/spack/mirrors.yaml
-        dest: /apps/software-configs/spack/latest/etc/spack/mirrors.yaml
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-        mode: '0644'
-    - name: Copy spack packages file
-      become: yes
-      # become_user: "{{system_user}}"
-      ansible.builtin.copy:
-        src: ./files/spack/spack-packages.yaml
-        dest: /apps/software-configs/spack/latest/etc/spack/packages.yaml
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-        mode: '0644'
-    - name: Copy spack modules file
-      become: yes
-      # become_user: "{{system_user}}"
-      ansible.builtin.copy:
-        src: ./files/spack/modules.yaml
-        dest: /apps/software-configs/spack/latest/etc/spack/modules.yaml
-        owner: "{{system_user}}"
-        group: "{{system_user}}"
-        mode: '0644'
+        src: "{{src}}"
+        dest: "{{dest}}"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: "{{mode}}"
+      when: ansible_os_family == "Ubuntu"
+      loop: "{{spack_configs}}"
