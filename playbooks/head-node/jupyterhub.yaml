@@ -1,4 +1,6 @@
 ---
+- name: Include system users
+  ansible.builtin.import_playbook: ../../system_user.yaml
 - name: Configure Jupyterhub
   hosts: localhost
   tasks:
@@ -8,8 +10,8 @@
         path: /apps/software-configs/jupyterhub
         state: directory
         mode: '0755'
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
     - name: Copy Dask Gateway Service
       become: yes
       ansible.builtin.copy:

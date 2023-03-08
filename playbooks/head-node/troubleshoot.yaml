@@ -1,5 +1,6 @@
 ---
-
+- name: Include system users
+  ansible.builtin.import_playbook: ../../system_user.yaml
 - name: Force rerun bootstrap scripts
   hosts: localhost
   tasks:
@@ -7,6 +8,6 @@
       become: yes
       ansible.builtin.shell: |
         source /usr/share/lmod/lmod/init/bash
-        cd /home/ec2-user/bootstrap-scripts
+        cd /home/{{system_user}}/bootstrap-scripts
         # bootstrap-scripts/install_all_the_things.sh 
         sudo ./install_all_the_things.sh

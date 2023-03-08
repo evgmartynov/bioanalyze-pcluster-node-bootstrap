@@ -1,55 +1,57 @@
 ---
+- name: Include system users
+  ansible.builtin.import_playbook: ../../system_user.yaml
 - name: Install Spack
   hosts: localhost
   tasks:
     - name: Create spack packages directory
       become: yes
-      # become_user: ec2-user
+      # become_user: {{system_user}}
       ansible.builtin.file:
-        dest: /home/ec2-user/.spack
+        dest: /home/{{system_user}}/.spack
         state: directory
         mode: '0755'
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
     - name: Create spack apps directory
       become: yes
-      # become_user: ec2-user
+      # become_user: {{system_user}}
       ansible.builtin.file:
         path: /apps/spack
         state: directory
         mode: '0755'
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
     - name: Create spack local mirror
       become: yes
-      # become_user: ec2-user
+      # become_user: {{system_user}}
       ansible.builtin.file:
         path: /apps/software/spack/mirror
         state: directory
         mode: '0755'
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
     - name: Create spack apps directory 0.19
       become: yes
-      # become_user: ec2-user
+      # become_user: {{system_user}}
       ansible.builtin.file:
         path: /apps/software-configs/spack/0.19.0
         state: directory
         mode: '0755'
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
     - name: Create spack apps directory 0.20
       become: yes
-      # become_user: ec2-user
+      # become_user: {{system_user}}
       ansible.builtin.file:
         path: /apps/software-configs/spack/0.20.0
         state: directory
         mode: '0755'
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
     - name: Git checkout - Latest
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ignore_errors: yes
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
@@ -58,7 +60,7 @@
         force: yes
     - name: Git checkout - 0.19.0
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ignore_errors: yes
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
@@ -67,7 +69,7 @@
         force: yes
     - name: Git checkout - 0.20.0
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ignore_errors: yes
       ansible.builtin.git:
         repo: https://github.com/spack/spack.git
@@ -76,7 +78,7 @@
         force: yes
     - name: BioAnalyze Spack
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ignore_errors: yes
       ansible.builtin.git:
         repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-spack
@@ -84,7 +86,7 @@
         force: yes
     - name: Create spack source script - 0.19.0
       become: yes
-      become_user: ec2-user
+      become_user: {{system_user}}
       ignore_errors: yes
       ansible.builtin.shell: |
         export SPACK_ROOT=/apps/software-configs/spack/latest
@@ -99,37 +101,37 @@
         spack repo add .
     - name: Copy spack config file
       become: yes
-      # become_user: ec2-user
+      # become_user: {{system_user}}
       ansible.builtin.copy:
         src: ./files/spack/config.yaml
         dest: /apps/software-configs/spack/latest/etc/spack/config.yaml
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
         mode: '0644'
     - name: Copy spack mirrors file
       become: yes
-      #      # become_user: ec2-user
+      #      # become_user: {{system_user}}
       ansible.builtin.copy:
         src: ./files/spack/mirrors.yaml
         dest: /apps/software-configs/spack/latest/etc/spack/mirrors.yaml
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
         mode: '0644'
     - name: Copy spack packages file
       become: yes
-      # become_user: ec2-user
+      # become_user: {{system_user}}
       ansible.builtin.copy:
         src: ./files/spack/spack-packages.yaml
         dest: /apps/software-configs/spack/latest/etc/spack/packages.yaml
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
         mode: '0644'
     - name: Copy spack modules file
       become: yes
-      # become_user: ec2-user
+      # become_user: {{system_user}}
       ansible.builtin.copy:
         src: ./files/spack/modules.yaml
         dest: /apps/software-configs/spack/latest/etc/spack/modules.yaml
-        owner: ec2-user
-        group: ec2-user
+        owner: {{system_user}}
+        group: {{system_user}}
         mode: '0644'
