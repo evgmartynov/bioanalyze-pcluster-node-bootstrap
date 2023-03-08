@@ -1,13 +1,11 @@
 ---
-- name: Include spack
-  ansible.builtin.import_playbook: ../../head-node/spack.yaml
 
-- name: Install Gromacs
+- name: Ubuntu - Install Gromacs
   hosts: localhost
   tasks:
     - name: Install gromacs with sbatch
       become: yes
-      become_user: {{system_user}}
+      become_user: ubuntu
       ansible.builtin.shell: |
         chmod 777 install-gromacs.sh
         echo "Submitting gromacs job to slurm"

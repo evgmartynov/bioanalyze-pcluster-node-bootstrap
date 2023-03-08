@@ -1,13 +1,8 @@
 ---
-- name: Include easybuild
-  ansible.builtin.import_playbook: ../../head-node/easybuild.yaml
-
 - name: Install alphafold
   hosts: localhost
   tasks:
     - name: Install easybuild modules
-      become: yes
-      become_user: {{system_user}}
       ansible.builtin.shell: |
         source /usr/share/lmod/lmod/init/bash
 
