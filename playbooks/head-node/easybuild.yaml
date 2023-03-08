@@ -106,7 +106,7 @@
           - pip
         environment: easybuild4
         state: present
-      when: ansible_os_family == "Ubuntu"
+      when: ansible_os_family == "Debian"
     - name: Alinux2 - Git checkout
       become: yes
       become_user: "ec2-user"
@@ -132,4 +132,4 @@
       become: yes
       become_user: "ubuntu"
       ansible.builtin.shell: "{{easybuild_submit}}"
-      when: ansible_os_family == "Ubuntu"
+      when: ansible_os_family == "Debian"
