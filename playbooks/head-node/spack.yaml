@@ -25,11 +25,11 @@
         dest: "/apps/software-configs/spack/latest",
         version: "develop",
       }
-      - {
-        repo: "https://github.com/spack/spack.git",
-        dest: "/apps/software-configs/spack/0.19.0",
-        version: "v.0.19.0",
-      }
+      #      - {
+      #        repo: "https://github.com/spack/spack.git",
+      #        dest: "/apps/software-configs/spack/0.19.0",
+      #        version: "v.0.19.0",
+      #      }
       - {
         repo: "https://github.com/dabble-of-devops-bioanalyze/bioanalyze-spack",
         dest: "/apps/software-configs/bioanalyze-spack",
