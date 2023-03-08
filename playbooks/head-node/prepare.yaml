@@ -1,7 +1,7 @@
 # Prepare directories as root
 ---
 - name: Include system users
-  ansible.builtin.import_playbook: ../../system_user.yaml
+  ansible.builtin.import_playbook: ../system_user.yaml
 - name: Prepare directories
   hosts: localhost
   tasks:
