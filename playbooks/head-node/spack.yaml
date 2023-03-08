@@ -19,7 +19,6 @@
         repo: "https://github.com/spack/spack.git",
         dest: "/apps/software-configs/spack/0.20.0",
         verion: "develop",
-        force: "yes",
       }
       - {
         repo: "https://github.com/spack/spack.git",
@@ -59,6 +58,7 @@
       }
   tasks:
     - name: Alinux2 - Git checkout spack
+      when: ansible_os_family == "RedHat"
       become: yes
       become_user: "ec2-user"
       ignore_errors: yes
@@ -68,8 +68,8 @@
         version: "{{version}}"
         force: yes
       loop: "{{git_repos}}"
-      when: ansible_os_family == "RedHat"
     - name: Ubuntu - Git checkout spack
+      when: ansible_os_family == "Debian"
       become: yes
       become_user: "ubuntu"
       ignore_errors: yes
@@ -79,8 +79,8 @@
         version: "{{version}}"
         force: yes
       loop: "{{git_repos}}"
-      when: ansible_os_family == "Debian"
     - name: Alinux2 - Spack config files
+      when: ansible_os_family == "RedHat"
       become: yes
       become_user: "ec2-user"
       ansible.builtin.copy:
@@ -89,9 +89,9 @@
         owner: "ec2-user"
         group: "ec2-user"
         mode: "{{mode}}"
-      when: ansible_os_family == "RedHat"
       loop: "{{spack_configs}}"
     - name: Ubuntu - Spack config files
+      when: ansible_os_family == "Debian"
       become: yes
       become_user: "ubuntu"
       ansible.builtin.copy:
@@ -100,5 +100,4 @@
         owner: "ubuntu"
         group: "ubuntu"
         mode: "{{mode}}"
-      when: ansible_os_family == "Debian"
       loop: "{{spack_configs}}"
