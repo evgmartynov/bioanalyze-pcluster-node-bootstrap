@@ -1,15 +1,11 @@
 ---
 - name: Include spack
   ansible.builtin.import_playbook: ../../head-node/spack.yaml
-- name: Include system users
-  ansible.builtin.import_playbook: ../../system_user.yaml
 
 - name: Install Bioconductor
   hosts: localhost
   tasks:
     - name: Install Bioconductor with sbatch
-      become: yes
-      become_user: {{system_user}}
       ansible.builtin.shell: |
         chmod 777 install-bioconductor.sh
         echo "Submitting R job to slurm"

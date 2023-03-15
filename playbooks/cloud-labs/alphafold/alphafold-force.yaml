@@ -1,11 +1,11 @@
 ---
 - name: Include easybuild
   ansible.builtin.import_playbook: ../../head-node/easybuild.yaml
-- name: Include system users
-  ansible.builtin.import_playbook: ../../system_user.yaml
 
 - name: Force install alphafold
   hosts: localhost
+  vars:
+    system_user: "ubuntu"
   tasks:
     - name: Install easybuild modules
       become: yes

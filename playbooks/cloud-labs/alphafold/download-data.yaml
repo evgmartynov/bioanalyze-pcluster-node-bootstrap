@@ -1,12 +1,12 @@
 ---
 - name: Include alphafold
   ansible.builtin.import_playbook: ./alphafold.yaml
-- name: Include system users
-  ansible.builtin.import_playbook: ../../system_user.yaml
 - name: Download alphafold
   hosts: localhost
+  vars:
+    system_user: "ubuntu"
   tasks:
-    - name: Create alphafold data directory
+    - name: Ubuntu - Create alphafold data directory
       become: yes
       ansible.builtin.file:
         path: /scratch/reference/alphafold
