@@ -42,7 +42,7 @@ export ROBOT=/app/software-configs/bioanalyze-easyconfigs
 #############################################################
 # Spack
 #############################################################
-export SPACK_ROOT=/apps/software-configs/spack/latest
+export SPACK_ROOT=/apps/software-configs/spack/v0.19.1
 source ${SPACK_ROOT}/share/spack/setup-env.sh
 export SPACK_ADD_DEBUG_FLAGS=true
 

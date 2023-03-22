@@ -3,7 +3,7 @@
   hosts: localhost
   vars:
     spack_post_init: |
-      export SPACK_ROOT=/apps/software-configs/spack/latest
+      export SPACK_ROOT=/apps/software-configs/spack/v0.19.1
       source ${SPACK_ROOT}/share/spack/setup-env.sh 
       
       # Install the rolling binary cache
@@ -11,14 +11,17 @@
       spack mirror add binary_mirror https://binaries.spack.io/develop
       spack buildcache keys --install --trust
       
+      spack mirror add E4S https://cache.e4s.io
+      spack buildcache keys -it
+      
       cd /apps/software-configs/bioanalyze-spack
       spack repo add .
 
     git_repos:
       - {
         repo: "https://github.com/spack/spack.git",
-        dest: "/apps/software-configs/spack/0.20.0",
-        version: "develop",
+        dest: "/apps/software-configs/spack/v0.19.1",
+        version: "v0.19.1",
       }
       - {
         repo: "https://github.com/spack/spack.git",
