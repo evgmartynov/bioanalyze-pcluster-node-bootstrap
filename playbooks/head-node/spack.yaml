@@ -2,6 +2,7 @@
 - name: Install Spack
   hosts: localhost
   vars:
+    spack_root: /apps/software-configs/spack/v0.19.1
     spack_post_init: |
       export SPACK_ROOT=/apps/software-configs/spack/v0.19.1
       source ${SPACK_ROOT}/share/spack/setup-env.sh 
@@ -41,22 +42,22 @@
     spack_configs:
       - {
         src: "./files/spack/config.yaml",
-        dest: "/apps/software-configs/spack/latest/etc/spack/config.yaml",
+        dest: "/apps/software-configs/spack/v0.19.1/etc/spack/config.yaml",
         mode: '0644'
       }
       - {
         src: "./files/spack/mirrors.yaml",
-        dest: "/apps/software-configs/spack/latest/etc/spack/mirrors.yaml",
+        dest: "/apps/software-configs/spack/v0.19.1/etc/spack/mirrors.yaml",
         mode: '0644'
       }
       - {
         src: "./files/spack/spack-packages.yaml",
-        dest: "/apps/software-configs/spack/latest/etc/spack/packages.yaml",
+        dest: "/apps/software-configs/spack/v0.19.1/etc/spack/packages.yaml",
         mode: '0644'
       }
       - {
         src: "./files/spack/modules.yaml",
-        dest: "/apps/software-configs/spack/latest/etc/spack/modules.yaml",
+        dest: "/apps/software-configs/spack/v0.19.1/etc/spack/modules.yaml",
         mode: '0644'
       }
   tasks:
