@@ -51,7 +51,7 @@
         mode: '0644'
       }
       - {
-        src: "./files/spack/spack-packages.yaml",
+        src: "./files/spack/packages.yaml",
         dest: "/apps/software-configs/spack/v0.19.1/etc/spack/packages.yaml",
         mode: '0644'
       }
