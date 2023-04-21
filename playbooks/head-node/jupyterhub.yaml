@@ -9,41 +9,41 @@
         dest: "/etc/sudoers.d/99-parallellcluster-secure-path"
       }
       - {
-        src: "./files/jupyterhub/daskgateway.service",
-        dest: "/usr/lib/systemd/system/daskgateway.service",
+        src: "./files/jupyterhub/daskgateway.service.j2",
+        dest: "/usr/lib/systemd/system/daskgateway.service.j2",
       }
       - {
-        src: "./files/jupyterhub/jupyterhub.service",
-        dest: "/usr/lib/systemd/system/jupyterhub.service",
+        src: "./files/jupyterhub/jupyterhub.service.j2",
+        dest: "/usr/lib/systemd/system/jupyterhub.service.j2",
       }
     app_configs:
       - {
-        src: "./files/jupyterhub/jupyterhub_config.py",
-        dest: "/apps/software-configs/jupyterhub/jupyterhub_config.py"
+        src: "./files/jupyterhub/jupyterhub_config.py.j2",
+        dest: "/apps/software-configs/jupyterhub/jupyterhub_config-{{ansible_hostname}}.py"
       }
       - {
         src: "./files/jupyterhub/dask_gateway_config.py",
-        dest: "/apps/software-configs/jupyterhub/dask_gateway_config.py"
+        dest: "/apps/software-configs/jupyterhub/dask_gateway_config-{{ansible_hostname}}.py"
       }
       - {
-        src: "./files/jupyterhub/run-jupyterhub.sh",
-        dest: "/apps/software-configs/jupyterhub/run-jupyterhub.sh"
+        src: "./files/jupyterhub/run-jupyterhub.sh.j2",
+        dest: "/apps/software-configs/jupyterhub/run-jupyterhub-{{ansible_hostname}}.sh"
       }
       - {
-        src: "./files/jupyterhub/run-daskgateway.sh",
-        dest: "/apps/software-configs/jupyterhub/run-daskgateway.sh",
+        src: "./files/jupyterhub/run-daskgateway.sh.j2",
+        dest: "/apps/software-configs/jupyterhub/run-daskgateway-{{ansible_hostname}}.sh",
       }
   tasks:
     - name: System Jupyter and Dask Gateway Config Files
       become: yes
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: "{{item.src}}"
         dest: "{{item.dest}}"
       loop: "{{system_configs}}"
     - name: Alinux2 - Jupyter and Dask Gateway Config Files
       become: yes
       become_user: "ec2-user"
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: "{{item.src}}"
         dest: "{{item.dest}}"
         owner: "ec2-user"
@@ -54,7 +54,7 @@
     - name: Ubuntu - Jupyter and Dask Gateway Config Files
       become: yes
       become_user: "ubuntu"
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: "{{item.src}}"
         dest: "{{item.dest}}"
         owner: "ubuntu"

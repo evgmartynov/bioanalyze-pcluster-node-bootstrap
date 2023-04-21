@@ -4,7 +4,7 @@ Description=Jupyterhub
 
 [Service]
 User=root
-ExecStart=/apps/software-configs/jupyterhub/run-jupyterhub.sh
+ExecStart=/apps/software-configs/jupyterhub/run-jupyterhub-{{ansible_hostname}}.sh
 WorkingDirectory=/apps/software-configs/jupyterhub
 
 [Install]
