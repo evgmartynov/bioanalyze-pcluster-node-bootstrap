@@ -10,11 +10,11 @@
       }
       - {
         src: "./files/jupyterhub/daskgateway.service.j2",
-        dest: "/usr/lib/systemd/system/daskgateway.service.j2",
+        dest: "/usr/lib/systemd/system/daskgateway.service",
       }
       - {
         src: "./files/jupyterhub/jupyterhub.service.j2",
-        dest: "/usr/lib/systemd/system/jupyterhub.service.j2",
+        dest: "/usr/lib/systemd/system/jupyterhub.service",
       }
     app_configs:
       - {
