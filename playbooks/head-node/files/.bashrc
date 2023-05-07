@@ -46,4 +46,5 @@ export SPACK_ROOT=/apps/software-configs/spack/v0.19.1
 source ${SPACK_ROOT}/share/spack/setup-env.sh
 export SPACK_ADD_DEBUG_FLAGS=true
 
+export PATH=/home/ubuntu/mambaforge/bin:$PATH
 alias 'conda'='/apps/easybuild/4.5.4/software/Miniconda3/4.12.0/bin/mamba'

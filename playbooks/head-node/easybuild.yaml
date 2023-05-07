@@ -18,6 +18,7 @@
       
       export SBATCH_EXCLUSIVE=""
       export SBATCH_PARTITION="dev"
+      export SBATCH_MEM_PER_NODE = 16000
       
       cd ${ROBOT}
       export EASYBUILD_JOB_BACKEND='Slurm'

@@ -41,7 +41,7 @@ c.JupyterHub.cookie_secret_file = 'jupyterhub_cookie_secret-{{ansible_hostname}}
 # Authentication
 #################################################################
 
-c.Authenticator.admin_users = set(['ec2-user'])
+c.Authenticator.admin_users = set(['ubuntu'])
 c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
 c.PAMAuthenticator.open_sessions = False
 

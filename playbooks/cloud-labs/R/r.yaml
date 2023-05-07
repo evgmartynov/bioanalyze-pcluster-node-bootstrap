@@ -7,7 +7,7 @@
   tasks:
     - name: Install R with sbatch
       become: yes
-      become_user: ec2-user
+      become_user: ubuntu
       ansible.builtin.shell: |
         chmod 777 install-r.sh
         echo "Submitting R job to slurm"
