@@ -1,0 +1,17 @@
+# Base Mamba Installation before the EasyBuild bootstrap
+---
+- name: Mamba Installation
+  hosts: localhost
+  tasks:
+    - name: Download Mambaforge installer
+      ansible.builtin.shell: wget -O /tmp/Mambaforge.sh  "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+    - name: Run the installer
+      ansible.builtin.shell: bash /tmp/Mambaforge.sh -b -u -p "${HOME}/conda"
+    - name: Remove the installer
+      file:
+        state: absent
+        path: /tmp/Mambaforge.sh
+    - name: Create the path to Conda
+      ansible.builtin.shell: source "${HOME}/conda/etc/profile.d/conda.sh"
+      args:
+        executable: /bin/bash
