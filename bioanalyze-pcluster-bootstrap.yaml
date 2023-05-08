@@ -4,6 +4,6 @@
   tasks:
     - name: Git checkout
       ansible.builtin.git:
-        repo: https://github.com/dabble-of-devops-bioanalyze/bioanalyze-pcluster-node-bootstrap
+        repo: https://github.com/evgmartynov/bioanalyze-pcluster-node-bootstrap
         dest: bioanalyze-pcluster-node-bootstrap
         force: yes
