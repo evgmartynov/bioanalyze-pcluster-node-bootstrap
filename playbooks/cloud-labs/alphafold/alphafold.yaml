@@ -21,3 +21,5 @@
         eb --robot=${ROBOT}: --job  \
           --tmp-logdir $HOME/eb_tmplogs \
           easybuild/easyconfigs/alphafold/alphafold-2.2.2.eb
+      args:
+       executable: /bin/bash
