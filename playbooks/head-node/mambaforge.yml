@@ -15,6 +15,6 @@
         path: /tmp/Mambaforge.sh
     - name: Create the path to Conda
       become: yes
-      ansible.builtin.shell: source "${HOME}/conda/etc/profile.d/conda.sh"
+      ansible.builtin.shell: source "/home/ubuntu/conda/etc/profile.d/conda.sh"
       args:
         executable: /bin/bash
