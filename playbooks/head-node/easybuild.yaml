@@ -133,4 +133,6 @@
       become: yes
       become_user: "ubuntu"
       ansible.builtin.shell: "{{easybuild_submit}}"
+      args:
+        executable: /bin/bash
       when: ansible_os_family == "Debian"
