@@ -12,4 +12,3 @@
         chmod 777 install-lmod.sh
         echo "Submitting lmod job to slurm"
         sbatch ./install-lmod.sh
-        sudo ln -s /usr/share/lmod/lmod/init /usr/share/modules/init
