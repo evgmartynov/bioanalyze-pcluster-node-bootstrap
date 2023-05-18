@@ -1,9 +1,11 @@
 # Head node bootstrap for Paracrine
 
-This readme provides instructions on how to execute Ansible playbooks using a Makefile. The Makefile simplifies the process by providing a convenient interface for running and managing Ansible tasks.
+This file provides instructions on how to deploy Paracrine cluster head node using a Makefile.
+
+The Makefile simplifies the process by providing a convenient interface for running and managing Ansible tasks.
 
 # Prerequisites
-Ansible: Ensure that Ansible is installed on your system. You can install Ansible by:
+Ensure that Ansible is installed on your system. You can install Ansible by:
 
 ```bash
 make install
