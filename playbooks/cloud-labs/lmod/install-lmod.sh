@@ -11,3 +11,7 @@ spack install \
   --no-checksum \
   --use-cache \
   lmod
+  
+if [ -f /usr/share/modules/init/$shell ]; then
+  sudo ln -s /usr/share/lmod/lmod/init /usr/share/modules/init
+fi
