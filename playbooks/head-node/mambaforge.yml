@@ -3,18 +3,27 @@
 - name: Mamba Installation
   hosts: localhost
   tasks:
-    - name: Download Mambaforge installer
+    - name: check to see if Miniconda is already installed
       become: yes
-      ansible.builtin.shell: wget -O /tmp/Mambaforge.sh  "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
-    - name: Run the installer
-      ansible.builtin.shell: bash /tmp/Mambaforge.sh -b -u -p "${HOME}/conda"
-    - name: Remove the installer
-      become: yes
-      file:
-        state: absent
-        path: /tmp/Mambaforge.sh
-    - name: Create the path to Conda
-      become: yes
-      ansible.builtin.shell: source "/home/ubuntu/conda/etc/profile.d/conda.sh"
-      args:
-        executable: /bin/bash
+      command: "conda -V"
+      ignore_errors: true
+      register: miniconda_is_installed
+      changed_when: false
+
+    - block:
+        - name: Download Mambaforge installer
+          become: yes
+          ansible.builtin.shell: wget -O /tmp/Mambaforge.sh  "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+        - name: Run the installer
+          ansible.builtin.shell: bash /tmp/Mambaforge.sh -b -u -p "${HOME}/conda"
+        - name: Remove the installer
+          become: yes
+          file:
+            state: absent
+            path: /tmp/Mambaforge.sh
+        - name: Create the path to Conda
+          become: yes
+          ansible.builtin.shell: source "/home/ubuntu/conda/etc/profile.d/conda.sh"
+          args:
+            executable: /bin/bash
+      when: miniconda_is_installed.rc != 0
